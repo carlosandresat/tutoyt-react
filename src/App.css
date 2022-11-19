@@ -258,7 +258,9 @@ section{
     align-items: center;
     background:url(./images/home-img.png);
     background-size: cover;
-    background-position: center;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .home .content{
@@ -354,7 +356,6 @@ section{
   }
 
   .home{
-      background-position: left;
       justify-content: center;
       text-align: center;
   }
