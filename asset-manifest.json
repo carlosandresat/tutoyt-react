@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/tutoyt-react/static/css/main.073c9b0a.css",
-    "main.js": "/tutoyt-react/static/js/main.7aaf6633.js",
+    "main.js": "/tutoyt-react/static/js/main.59aab685.js",
     "static/js/787.72434d5f.chunk.js": "/tutoyt-react/static/js/787.72434d5f.chunk.js",
     "static/media/logo.svg": "/tutoyt-react/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/tutoyt-react/index.html",
     "main.073c9b0a.css.map": "/tutoyt-react/static/css/main.073c9b0a.css.map",
-    "main.7aaf6633.js.map": "/tutoyt-react/static/js/main.7aaf6633.js.map",
+    "main.59aab685.js.map": "/tutoyt-react/static/js/main.59aab685.js.map",
     "787.72434d5f.chunk.js.map": "/tutoyt-react/static/js/787.72434d5f.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.7aaf6633.js"
+    "static/js/main.59aab685.js"
   ]
 }
