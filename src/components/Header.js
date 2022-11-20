@@ -6,7 +6,7 @@ function Header() {
         <header className="header">
 
             <a href="#" className="logo">
-                <img src="../public/images/logo.png" alt="" />
+                <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" />
             </a>
 
             <nav className="navbar">
