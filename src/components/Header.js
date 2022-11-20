@@ -1,6 +1,3 @@
-import tutoLogo from '../images/logo.png';
-
-
 function Header() {
     
 
@@ -9,7 +6,7 @@ function Header() {
         <header className="header">
 
             <a href="#" className="logo">
-                <img src={tutoLogo} alt="" />
+                <img src="../public/images/logo.png" alt="" />
             </a>
 
             <nav className="navbar">

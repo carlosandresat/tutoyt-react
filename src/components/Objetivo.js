@@ -1,5 +1,3 @@
-import objetivo from '../images/objetivo-img.jpeg';
-
 function Objetivo(){
     return(
         <section class="objetivo" id="objetivo">
@@ -9,7 +7,7 @@ function Objetivo(){
             <div class="row">
 
                 <div class="image">
-                    <img src={objetivo} alt="" />
+                    <img src="tutoyt-react/images/objetivo-img.jpeg" alt="" />
                 </div>
 
                 <div class="content">
