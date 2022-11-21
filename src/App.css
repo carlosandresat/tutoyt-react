@@ -260,7 +260,6 @@ section{
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
 }
 
 .home .content{
@@ -356,7 +355,13 @@ section{
 
 /* XD */
 
+.swiper-pagination-bullet {
+    background-color: var(--main-color) !important;
+}
 
+.swiper-pagination-bullet-active {
+    background-color: #fff !important;
+}
 
 /* Tutores */
 .tutores .box-container{
