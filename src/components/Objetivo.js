@@ -7,7 +7,7 @@ function Objetivo(){
             <div class="row">
 
                 <div class="image">
-                    <img src="tutoyt-react/images/objetivo-img.jpeg" alt="" />
+                    <img src={process.env.PUBLIC_URL + "/images/objetivo-img.jpeg"} alt="" />
                 </div>
 
                 <div class="content">
