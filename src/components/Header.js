@@ -1,11 +1,13 @@
 function Header() {
+
+    const handleClickUser = event => {
+        document.getElementById('theLogin').classList.add('popup');
+    };
     
-
-
     return (
         <header className="header">
 
-            <a href="#" className="logo">
+            <a href="#home" className="logo">
                 <img src={process.env.PUBLIC_URL + "/images/logo.png"} alt="" />
             </a>
 
@@ -18,7 +20,7 @@ function Header() {
             </nav>
 
             <div className="icons">
-                <div className="fas fa-user" id="user-btn"></div>
+                <div className="fas fa-user" id="user-btn" onClick={handleClickUser}></div>
                 <div className="fas fa-bars" id="asignaturas-btn"></div>
             </div>
 
@@ -55,11 +57,11 @@ function Header() {
                         <div className="price">$15.99/-</div>
                     </div>
                 </div>
-                <a href="#" className="btn">checkout now</a>
+                <a href="#home" className="btn">checkout now</a>
             </div>           
 
         </header>
     );
-  }
+}
   
-  export default Header;
+export default Header;
