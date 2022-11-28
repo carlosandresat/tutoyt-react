@@ -112,7 +112,7 @@ section{
 }
 
 #asignaturas-btn{
-    display: none;
+    display: inline-block;
 }
 
 
@@ -123,6 +123,8 @@ section{
     width: 35rem;
     background: #fff;
     padding:0 1.5rem;
+    border-style: solid;
+    border-width: 5px;
 }
 
 .header .cart-items-container.active{
@@ -135,6 +137,7 @@ section{
     display: flex;
     align-items: center;
     gap:1.5rem;
+    margin-bottom: 5rem;
 }
 
 .header .cart-items-container .cart-item .fa-times{
@@ -150,16 +153,44 @@ section{
 }
 
 .header .cart-items-container .cart-item img{
-    height: 7rem;
+    height: 6rem;
+    top: 1rem;
+    position: relative;
 }
+
 
 .header .cart-items-container .cart-item .content h3{
     font-size: 2rem;
     color:var(--black);
-    padding-bottom: .5rem;
+    padding-bottom: 1.5rem;
 }
 
-.header .cart-items-container .cart-item .content .price{
+.header .cart-items-container .cart-item .content .fa-calendar{
+    position: absolute;
+    top:5rem; left: 8.5rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--black);
+}
+
+.header .cart-items-container .cart-item .content .date{
+    position: absolute;
+    top:5rem; left: 10.5rem;
+    font-size: 1.5rem;
+    color:var(--main-color);
+}
+
+.header .cart-items-container .cart-item .content .fa-clock{
+    position: absolute;
+    top:5rem; right: 8rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--black);
+}
+
+.header .cart-items-container .cart-item .content .time{
+    position: absolute;
+    top:5rem; right: 3.5rem;
     font-size: 1.5rem;
     color:var(--main-color);
 }
@@ -495,9 +526,6 @@ section{
 
 @media (max-width:768px){
 
-  #asignaturas-btn{
-      display: inline-block;
-  }
 
   .header .navbar{
       position: absolute;
