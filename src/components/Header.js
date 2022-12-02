@@ -1,10 +1,12 @@
 import React from "react";
 import Login from "./Login";
+import userData from "../data/userData";
 
 function Header() {
 
     const [isActive, setIsActive] = React.useState(false);
     const [isListActive, setIsListActive] = React.useState(false);
+    const [userLogged, setUserLogged] = React.useState('');
 
     const inputRefUser = React.useRef(null);
     const inputRefPassword = React.useRef(null);
@@ -26,10 +28,21 @@ function Header() {
     const handleClickLogin = () => {
         setIsActive(prevIsActive => true);
         document.getElementById('theLogin').classList.remove('popup');
+        let callback = u => u.user === inputRefUser.current.value;
+        const user = userData.filter(callback);
+        if(user.length>0){
+            console.log(user[0].userFirstName)
+        }
+        else{
+            console.log("NO HAY XD")
+        }
+        
+        setUserLogged(user[0].userFirstName);
     }
 
     const handleClickLogout = () => {
-        setIsActive(prevIsActive => false)
+        setIsActive(false);
+        setUserLogged('')
     }
     
     return (
@@ -48,7 +61,7 @@ function Header() {
                     <a href="#tutores">Tutores</a>
                     <a href="#review">Reviews</a>
                 </nav>
-                <div className="saludo">{isActive ? `Hola ${inputRefUser.current.value}` : ''}</div>
+                <div className="saludo">{isActive ? `Hola, ${userLogged}` : ''}</div>
 
                 <div className="icons">
                     {isActive ?
