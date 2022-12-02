@@ -17,32 +17,22 @@ function Header() {
 
     const handleClickAsignaturas = event => {
         setIsListActive(prevCount => !prevCount);
-        if(isListActive){
-            document.getElementById('asignaturas-list').classList.add('active');
-        }
-        else{
-            document.getElementById('asignaturas-list').classList.remove('active');
-        }
     };
 
     const handleClickLogin = () => {
-        setIsActive(prevIsActive => true);
-        document.getElementById('theLogin').classList.remove('popup');
         let callback = u => u.user === inputRefUser.current.value;
         const user = userData.filter(callback);
-        if(user.length>0){
-            console.log(user[0].userFirstName)
+        if(user[0].password === inputRefPassword.current.value){
+            setIsActive(prevIsActive => true);
+            document.getElementById('theLogin').classList.remove('popup');        
+            setUserLogged(user[0].userFirstName);
         }
-        else{
-            console.log("NO HAY XD")
-        }
-        
-        setUserLogged(user[0].userFirstName);
     }
 
     const handleClickLogout = () => {
         setIsActive(false);
-        setUserLogged('')
+        setUserLogged('');
+        setIsListActive(false);
     }
     
     return (
@@ -74,7 +64,7 @@ function Header() {
                     }
                 </div>
 
-                <div className="cart-items-container" id="asignaturas-list">
+                <div className={isListActive ? "cart-items-container active" : "cart-items-container"} id="asignaturas-list">
                     <div className="cart-item">
                         <span className="fas fa-times"></span>
                         <img src={process.env.PUBLIC_URL +"/images/mate.png"} alt="" />

@@ -29,7 +29,7 @@ export default [
     {
         user: 'selena.jimenez',
         password: 'selena.jimenez',
-        userFirstName: 'Selena',
+        userFirstName: 'Selena preciosa',
         tutorias: [
             {
                 asignatura: 'Hola, gracias',
