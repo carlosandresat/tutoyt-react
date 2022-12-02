@@ -1,6 +1,5 @@
 import './App.css';
 import Header from './components/Header';
-import Login from './components/Login';
 import Home from './components/Home';
 import Objetivo from './components/Objetivo';
 import Asignaturas from './components/Asignaturas';
@@ -21,7 +20,6 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Login />
       <Home />
       <Objetivo />
       <section className="asignaturas" id="asignaturas">
