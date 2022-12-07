@@ -1,16 +1,28 @@
 import React from "react";
 import Login from "./Login";
 import userData from "../data/userData";
+import Tutorings from "./Tutorings";
 
 function Header() {
 
     const [isActive, setIsActive] = React.useState(false);
     const [isListActive, setIsListActive] = React.useState(false);
     const [userLogged, setUserLogged] = React.useState('');
+    const [userTutorings, setUserTutorings] = React.useState([]);
 
     const inputRefUser = React.useRef(null);
     const inputRefPassword = React.useRef(null);
 
+    const tutorings = userTutorings.map(item =>{
+        return(
+            <Tutorings
+                key={item.id}
+                {...item}
+            />
+        )
+    });
+
+    
     const handleClickUser = event => {
         document.getElementById('theLogin').classList.add('popup');
     };
@@ -26,6 +38,7 @@ function Header() {
             setIsActive(prevIsActive => true);
             document.getElementById('theLogin').classList.remove('popup');        
             setUserLogged(user[0].userFirstName);
+            setUserTutorings(user[0].tutorias);
         }
     }
 
@@ -65,62 +78,7 @@ function Header() {
                 </div>
 
                 <div className={isListActive ? "cart-items-container active" : "cart-items-container"} id="asignaturas-list">
-                    <div className="cart-item">
-                        <span className="fas fa-times"></span>
-                        <img src={process.env.PUBLIC_URL +"/images/mate.png"} alt="" />
-                        <div className="content">
-                            <h3>Cálculo II</h3>
-                            <div className="info">
-                                <div className="fas fa-calendar"></div>
-                                <div className="date">12/Nov</div>
-
-                                <div className="fas fa-clock"></div>
-                                <div className="time">08:00</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="cart-item">
-                        <span className="fas fa-times"></span>
-                        <img src={process.env.PUBLIC_URL +"/images/fis.png"} alt="" />
-                        <div className="content">
-                            <h3>Física I</h3>
-                            <div className="info">
-                                <div className="fas fa-calendar"></div>
-                                <div className="date">12/Nov</div>
-
-                                <div className="fas fa-clock"></div>
-                                <div className="time">12:00</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="cart-item">
-                        <span className="fas fa-times"></span>
-                        <img src={process.env.PUBLIC_URL +"/images/quim.png"} alt="" />
-                        <div className="content">
-                            <h3>Química I</h3>
-                            <div className="info">
-                                <div className="fas fa-calendar"></div>
-                                <div className="date">14/Nov</div>
-
-                                <div className="fas fa-clock"></div>
-                                <div className="time">10:00</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="cart-item">
-                        <span className="fas fa-times"></span>
-                        <img src={process.env.PUBLIC_URL +"/images/mate.png"} alt="" />
-                        <div className="content">
-                            <h3>Algoritmos</h3>
-                            <div className="info">
-                                <div className="fas fa-calendar"></div>
-                                <div className="date">15/Nov</div>
-
-                                <div className="fas fa-clock"></div>
-                                <div className="time">14:00</div>
-                            </div>
-                        </div>
-                    </div>
+                    {tutorings}
                 </div>           
 
             </header>
