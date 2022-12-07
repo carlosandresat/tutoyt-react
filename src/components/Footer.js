@@ -7,6 +7,8 @@ function Footer() {
                 <a href="https://twitter.com/carlosandresat" target={"_blank"} className="fab fa-twitter"></a>
                 <a href="https://www.instagram.com/carlosandresat/" target={"_blank"} className="fab fa-instagram"></a>
                 <a href="https://www.linkedin.com/in/carlosandresat/" target={"_blank"} className="fab fa-linkedin"></a>
+                <a href="https://github.com/carlosandresat" target={"_blank"} className="fab fa-github"></a>
+
             </div>
 
             <div className="links">

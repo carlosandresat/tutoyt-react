@@ -22,7 +22,6 @@ function Header() {
         )
     });
 
-    
     const handleClickUser = event => {
         document.getElementById('theLogin').classList.add('popup');
     };
