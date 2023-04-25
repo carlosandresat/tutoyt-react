@@ -241,6 +241,12 @@ section{
     padding:1rem 0;
 }
 
+.login-form form h4{
+    font-size: 2rem;
+    color: #fff;
+    padding:1rem 0;
+}
+
 .login-form form .box{
     width:100%;
     padding:1rem 0;
@@ -250,6 +256,14 @@ section{
     color: #fff;
     text-transform: none;
     background-color: transparent;
+}
+
+.login-form form .box option{
+    background-color: var(--black);
+}
+
+::-webkit-calendar-picker-indicator{
+    color-scheme: dark;
 }
 
 .login-form form .box:focus{
@@ -356,39 +370,39 @@ section{
     gap:1.5rem;
 }
 
-.asignaturas .box-container .box{
+.asignaturas .box-container .classBox{
     padding:5rem;
     text-align: center;
     border:var(--border);    
 }
 
-.asignaturas .box-container .box img{
+.asignaturas .box-container .classBox img{
     height: 10rem;
 }
 
-.asignaturas .box-container .box h3{
+.asignaturas .box-container .classBox h3{
     color: #fff;
     font-size: 2rem;
     padding:1rem 0;
 }
 
-.asignaturas .box-container .box .price{
+.asignaturas .box-container .classBox .price{
     color: #fff;
     font-size: 2.5rem;
     padding:.5rem 0;
 }
 
-.asignaturas .box-container .box .price span{
+.asignaturas .box-container .classBox .price span{
     font-size: 1.5rem;
     text-decoration: line-through;
     font-weight: lighter;
 }
 
-.asignaturas .box-container .box:hover{
+.asignaturas .box-container .classBox:hover{
     background:#fff;
 }
 
-.asignaturas .box-container .box:hover > *{
+.asignaturas .box-container .classBox:hover > *{
     color:var(--black);
 }
 

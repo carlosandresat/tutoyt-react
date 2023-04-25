@@ -2,16 +2,30 @@ import React from "react";
 import Login from "./Login";
 import userData from "../data/userData";
 import Tutorings from "./Tutorings";
+import { logout } from "../api/login.api";
+import axios from "axios";
 
-function Header() {
+function Header(props) {
 
     const [isActive, setIsActive] = React.useState(false);
     const [isListActive, setIsListActive] = React.useState(false);
     const [userLogged, setUserLogged] = React.useState('');
     const [userTutorings, setUserTutorings] = React.useState([]);
 
+    axios.defaults.withCredentials = true;
+    //Login
     const inputRefUser = React.useRef(null);
     const inputRefPassword = React.useRef(null);
+
+    const handleLogout = async () => {
+        const response = await logout()
+        if (response.data.Status === "Success"){
+            window.location.reload(true)
+        } else {
+            alert("Error al Logout")
+        }
+    }
+    
 
     const tutorings = userTutorings.map(item =>{
         return(
@@ -63,12 +77,11 @@ function Header() {
                     <a href="#tutores">Tutores</a>
                     <a href="#review">Reviews</a>
                 </nav>
-                <div className="saludo">{isActive ? `Hola, ${userLogged}` : ''}</div>
 
                 <div className="icons">
-                    {isActive ?
+                    {props.auth ?
                     <div>
-                    <div className="fas fa-power-off" id="logout-btn" onClick={handleClickLogout}></div>
+                    <div className="fas fa-power-off" id="logout-btn" onClick={handleLogout}></div>
                     <div className="fas fa-bars" id="asignaturas-btn" onClick={handleClickAsignaturas}></div>
                     </div>
                     :
@@ -81,7 +94,7 @@ function Header() {
                 </div>           
 
             </header>
-            <Login inputUser={inputRefUser} inputPassword={inputRefPassword} handleLogin={handleClickLogin} />
+            <Login/>
         </div>
     );
 }
