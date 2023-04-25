@@ -1,1 +1,1 @@
-export const SERVER = process.env.SERVER || 'tutoyt-server-production.up.railway.app'
+export const SERVER_URL = process.env.SERVER_URL || 'http://localhost:9000'

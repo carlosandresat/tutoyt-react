@@ -1,5 +1,5 @@
 import axios from "axios";
-import { SERVER } from "../config";
+import { SERVER_URL } from "../config";
 
 export const requestSession = async (session) =>
-    await axios.post(`${SERVER}/session`, session)
+    await axios.post(`${SERVER_URL}/session`, session)

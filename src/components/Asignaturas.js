@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from "react";
 import Tutoringform from "./Tutoringform";
 import { getTutorsByClass } from "../api/tutors.api";
-import { SERVER } from "../config";
+import { SERVER_URL } from "../config";
 
 function Asignaturas(props) {
     const [courses, setCourses] = useState([]);
@@ -9,7 +9,7 @@ function Asignaturas(props) {
     const [tutorsList, setTutorsList] = useState([]);
 
     useEffect(() => {
-        fetch(`${SERVER}/asignaturas`)
+        fetch(`${SERVER_URL}/asignaturas`)
         .then(res => res.json())
         .then(data => setCourses(data))
         .catch(err => console.log(err));

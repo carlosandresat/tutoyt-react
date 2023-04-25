@@ -4,13 +4,13 @@ import "swiper/css";
 import "swiper/css/pagination";
 import tutoresData from "../data/tutores";
 import { useState, useEffect } from "react";
-import { SERVER } from "../config";
+import { SERVER_URL } from "../config";
 
 function Tutores() {
     const [tutors, setTutores] = useState([]);
 
     useEffect(() => {
-        fetch(`${SERVER}/tutores`)
+        fetch(`${SERVER_URL}/tutores`)
         .then(res => res.json())
         .then(data => setTutores(data))
         .catch(err => console.log(err));
