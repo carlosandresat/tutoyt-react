@@ -48,7 +48,7 @@ function Login(props) {
                             <p>{errors.user}</p>
                         ): null}
                         <input 
-                        type="text" placeholder="Username" className="box"
+                        type="text" placeholder="Usuario" className="box"
                         name='user' onChange={handleChange} value={values.user}
                         />
                         {errors.password && touched.password ? (

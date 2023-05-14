@@ -3,6 +3,8 @@ import Login from "./Login";
 import userData from "../data/userData";
 import Tutorings from "./Tutorings";
 import { logout } from "../api/login.api";
+import { getSessionsByStudent } from "../api/session.api";
+import { useState, useEffect } from 'react';
 import axios from "axios";
 
 function Header(props) {
@@ -13,9 +15,8 @@ function Header(props) {
     const [userTutorings, setUserTutorings] = React.useState([]);
 
     axios.defaults.withCredentials = true;
+
     //Login
-    const inputRefUser = React.useRef(null);
-    const inputRefPassword = React.useRef(null);
 
     const handleLogout = async () => {
         const response = await logout()
@@ -40,26 +41,13 @@ function Header(props) {
         document.getElementById('theLogin').classList.add('popup');
     };
 
-    const handleClickAsignaturas = event => {
+    const handleClickAsignaturas = async event => {
         setIsListActive(prevCount => !prevCount);
+        const response = await getSessionsByStudent(props.user)
+        setUserTutorings(response.data)
+        console.log(response.data)
     };
 
-    const handleClickLogin = () => {
-        let callback = u => u.user === inputRefUser.current.value;
-        const user = userData.filter(callback);
-        if(user[0].password === inputRefPassword.current.value){
-            setIsActive(prevIsActive => true);
-            document.getElementById('theLogin').classList.remove('popup');        
-            setUserLogged(user[0].userFirstName);
-            setUserTutorings(user[0].tutorias);
-        }
-    }
-
-    const handleClickLogout = () => {
-        setIsActive(false);
-        setUserLogged('');
-        setIsListActive(false);
-    }
     
     return (
         <div>

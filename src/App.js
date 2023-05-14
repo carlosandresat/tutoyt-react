@@ -5,6 +5,7 @@ import Objetivo from './components/Objetivo';
 import Asignaturas from './components/Asignaturas';
 import Tutores from './components/Tutores';
 import Footer from './components/Footer';
+import Registerform from './components/Registerform';
 import { useState, useEffect } from 'react';
 
 import { authorizeUser } from './api/login.api';
@@ -30,7 +31,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header auth={auth}/>
+      <Header auth={auth} user={user}/>
+      <Registerform />
       <Home />
       <Objetivo />
       <section className="asignaturas" id="asignaturas">
