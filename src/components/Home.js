@@ -1,4 +1,4 @@
-function Home() {
+function Home(props) {
 
     const handleClicRegister = event => {
         document.getElementById('registerForm').classList.add('popup');
@@ -10,7 +10,13 @@ function Home() {
             <div className="content">
                 <h3>Tutoring Sessions Yachay Tech</h3>
                 <p>Donde nos reunimos en nombre del conomiento</p>
-                <button onClick={handleClicRegister} className="btn">Regístrate ya!</button>
+                {
+                    props.auth ?
+                    null 
+                    :
+                    <button onClick={handleClicRegister} className="btn">Regístrate ya!</button>
+                }
+                
             </div>
 
         </section>    

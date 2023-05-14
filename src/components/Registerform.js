@@ -28,7 +28,6 @@ function Registerform(props) {
             }}
             validationSchema={registerSchema}
             onSubmit={async (values, actions) => {
-                console.log("XD")
                 try {
                     const validate = await checkUser(values.user)
                     if(validate.data.status === "Success"){

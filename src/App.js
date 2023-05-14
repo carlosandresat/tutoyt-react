@@ -33,7 +33,7 @@ function App() {
     <div className="App">
       <Header auth={auth} user={user}/>
       <Registerform />
-      <Home />
+      <Home auth={auth}/>
       <Objetivo />
       <section className="asignaturas" id="asignaturas">
         <h1 className="heading"> Nuestras <span>asignaturas</span> </h1>

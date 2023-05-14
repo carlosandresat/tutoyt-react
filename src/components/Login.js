@@ -15,6 +15,10 @@ function Login(props) {
         password: Yup.string().required('Ingresa tu contraseña')
     })
 
+    const handleClicRegister = event => {
+        document.getElementById('registerForm').classList.add('popup');
+        document.getElementById('theLogin').classList.remove('popup');
+    };
  
     return (
         <div className="login-form" id="theLogin">
@@ -58,7 +62,7 @@ function Login(props) {
                         type="password" placeholder="Contraseña" className="box"
                         name='password' onChange={handleChange} value={values.password} 
                         />
-                        <p>No tienes una cuenta? <a href="#home">Regístrate ya!</a></p>
+                        <p>No tienes una cuenta? <a onClick={handleClicRegister}>Regístrate ya!</a></p>
                         <button type="submit" className="btn" value="Login" disabled={isSubmitting}>
                         {isSubmitting ? "Loging..." : "Login"}
                         </button>
