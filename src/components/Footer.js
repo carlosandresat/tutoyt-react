@@ -20,7 +20,7 @@ function Footer() {
             </div>
 
             <div className="credit">
-                Developed by <span>Carlos Arévalo</span> | All rights reserved.
+                Developed by <span>Carlos Arévalo</span> | © TutoYT v0.2
             </div>
         </section>
     )

@@ -11,9 +11,9 @@ function Objetivo(){
                 </div>
 
                 <div class="content">
-                    <h3>Qué es Tutoring session?</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus qui ea ullam, enim tempora ipsum fuga alias quae ratione a officiis id temporibus autem? Quod nemo facilis cupiditate. Ex, vel?</p>
-                    <p>Somos Yachay Tech.</p>
+                    <h3>¿Qué es Tutoring Sessions?</h3>
+                    <p>Aquí puedes encontrar ayuda en tus asignaturas con personas dispuestas a enseñarte mediante tutorías propuestas a tu comodidad. O tambien puedes dar un paso más allá y convertirte en uno de nuestros tutores en Tutoring Sessions Yachay Tech.</p>
+                    <p>¿De qué sirve el poder del conocimiento si no se lo comparte con los demás?</p>
                 </div>
 
             </div>

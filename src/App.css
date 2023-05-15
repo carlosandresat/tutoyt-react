@@ -17,6 +17,10 @@
     transition: .2s linear;
 }
 
+textarea {
+    resize: vertical;
+  }
+
 html{
     font-size: 62.5%;
     overflow-x: hidden;
@@ -66,10 +70,12 @@ section{
     color:#fff;
     background: var(--main-color);
     cursor: pointer;
+    border-radius: 1rem;
 }
 
 .btn:hover{
-    letter-spacing: .2rem;
+    box-shadow: 0 0.5em 0.5em -0.4em var(--main-color);
+    transform: translateY(-0.25em);
 }
 
 .header{
@@ -399,11 +405,11 @@ section{
 }
 
 .asignaturas .box-container .classBox:hover{
-    background:#fff;
+    background:#667f813f;
 }
 
 .asignaturas .box-container .classBox:hover > *{
-    color:var(--black);
+    color: #fff;
 }
 
 /* XD */
@@ -516,6 +522,8 @@ section{
 
 .footer .links a:hover{
     background:var(--main-color);
+    box-shadow: 0 0.5em 0.5em -0.4em var(--main-color);
+    transform: translateY(-0.25em);
 }
 
 .footer .credit{
@@ -526,7 +534,10 @@ section{
 }
 
 .footer .credit span{
-    color:var(--main-color);
+    color: #fff;
+    font-weight: bolder;
+    box-shadow: 0 0.3em 0.7em -0.4em #fff;
+    transform: translateY(-0.25em);
 }
 
 /* media queries  */

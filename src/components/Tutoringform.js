@@ -69,6 +69,16 @@ function Tutoringform(props) {
                     type="time" className="box" name="time" onChange={handleChange}
                     value={values.time}>
                     </input>
+                    
+                    <h4>Tema tutoría:</h4>
+                    {errors.topic && touched.topic ? (
+                            <p>{errors.topic}</p>
+                    ): null}
+                    <textarea rows="3" cols="80"
+                        type="text" placeholder="Detalla tu tema (max. 30 caracteres)" className="box"
+                        name='topic' onChange={handleChange} value={values.topic}
+                    />
+
                     <p>Recuerda que tu tutor debe confirmar el horario solicitado</p>
                     <button type="submit" className="btn" value="Login" disabled={isSubmitting}>
                         {isSubmitting ? "Solicitando" : "Solicitar"}
