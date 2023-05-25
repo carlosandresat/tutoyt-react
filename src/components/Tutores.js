@@ -37,6 +37,21 @@ function Tutores() {
         )
     })
 
+
+    const drawStars = (nstars) => {
+        const stars = []
+        for(let i = 0; i < Math.trunc(nstars); i++){
+            console.log("OA")
+            stars.push(<i className="fas fa-star"></i>)
+        }
+        if(nstars - Math.trunc(nstars) > 0.1){
+            stars.push(<i className="fas fa-star-half"></i>)
+
+        }
+        return stars
+    }
+    const prueba = 'holi'
+
     const tutoresdata = tutors.map(tutor => (
         <SwiperSlide className="box">
             <a href="#" className="btn">Conócelo</a>
@@ -46,7 +61,9 @@ function Tutores() {
             <div className="content">
                 <h3>{tutor.name}</h3>
                 <div className="stars">
-                    <i className="fas fa-star"></i>
+                    {
+                        drawStars(tutor.rating)
+                    }
                 </div>
                 <div className="rating">
                     {tutor.rating} <span>({tutor.nreviews} reviews)</span>
