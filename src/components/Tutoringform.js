@@ -14,7 +14,8 @@ function Tutoringform(props) {
     const tutoringSchema = Yup.object().shape({
         tutor: Yup.string().required('Tutor requerido'),
         date: Yup.date().required().min(new Date(), 'La fecha debe ser con un dia de anticipación'),
-        time: Yup.string().required('Required')
+        time: Yup.string().required('Debes ingresar una fecha'),
+        topic: Yup.string().required('Debes ingresar un tema').min(4, 'Describe mejor el tema')
     })
 
  
@@ -24,7 +25,8 @@ function Tutoringform(props) {
             initialValues={{
                 tutor: "",
                 date:"",
-                time: ""
+                time: "",
+                topic: ""
             }}
             validationSchema={tutoringSchema}
             onSubmit={async (values, actions) => {
