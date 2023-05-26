@@ -544,9 +544,9 @@ section{
 }
 
 .footer .credit span{
+    font-size: 2.3rem;
     color: #fff;
     font-weight: bolder;
-    box-shadow: 0 0.3em 0.7em -0.4em #fff;
     transform: translateY(-0.25em);
 }
 

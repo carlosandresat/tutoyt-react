@@ -28,6 +28,7 @@ function Header(props) {
                 <Tutorings
                     key={item.id}
                     {...item}
+                    onDelete = {props.onDelete}
                 />            
         )
     });
@@ -37,6 +38,7 @@ function Header(props) {
                 <Tutorings
                     key={item.id}
                     {...item}
+                    onDelete = {props.onDelete}
                 />            
         )
     });

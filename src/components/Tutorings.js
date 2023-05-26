@@ -3,15 +3,23 @@ import {cancelTutoring} from "../api/session.api"
 function Tutorings(props){
 
     async function handleClickCancelTutoring(id) {
-        if (window.confirm("¿Estás seguro que quieres cancelar la tutoría?") == true){
+        if (window.confirm("¿Estás seguro que quieres cancelar la tutoría?") === true){
             await cancelTutoring(id)
+            props.onDelete(id)
         }
     };
+
+    const handleClickCancelTutoring2 = async () => {
+        if (window.confirm("¿Estás seguro que quieres cancelar la tutoría?") === true){
+            await cancelTutoring(props.id)
+            props.onDelete(props.id)
+        }
+    }
 
     return(
         <div className="cart-item">
             <img src={process.env.PUBLIC_URL + `/images/${props.code}.png`} alt="" />
-            <span className="fas fa-times" onClick={()=> handleClickCancelTutoring(props.id)}></span>
+            <span className="fas fa-times" onClick={handleClickCancelTutoring2}></span>
             <div className="content">
                 <h3>{props.name}</h3>
                 <div className="info">

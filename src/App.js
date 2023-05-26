@@ -20,6 +20,10 @@ function App() {
   const [userTutorings, setUserTutorings] = useState([]);
 
 
+  const handleDeleteTutoring = (tutoringId) => {
+    setUserTutorings((prevTutorings) => prevTutorings.filter((tutoring) => tutoring.id !== tutoringId));
+  }
+
   useEffect(() => {
     async function verifyUser(){
       const response = await authorizeUser()
@@ -37,7 +41,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header auth={auth} user={user} tutorings={userTutorings}/>
+      <Header auth={auth} user={user} tutorings={userTutorings} onDelete={handleDeleteTutoring}/>
       <Registerform />
       <Home auth={auth}/>
       <Objetivo />
