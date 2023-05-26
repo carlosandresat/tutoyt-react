@@ -19,7 +19,6 @@ function Tutores() {
     const drawStars = (nstars) => {
         const stars = []
         for(let i = 0; i < Math.trunc(nstars); i++){
-            console.log("OA")
             stars.push(<i className="fas fa-star"></i>)
         }
         if(nstars - Math.trunc(nstars) > 0.1){

@@ -9,12 +9,16 @@ import Registerform from './components/Registerform';
 import { useState, useEffect } from 'react';
 
 import { authorizeUser } from './api/login.api';
+import { getSessionsByStudent } from "./api/session.api";
+
 
 
 function App() {
 
   const [auth, setAuth] = useState(false)
   const [user, setUser] = useState('')
+  const [userTutorings, setUserTutorings] = useState([]);
+
 
   useEffect(() => {
     async function verifyUser(){
@@ -22,6 +26,8 @@ function App() {
       if (response.data.Status === "Success"){
         setAuth(true)
         setUser(response.data.user)
+        const tutoringList = await getSessionsByStudent(response.data.user)
+        setUserTutorings(tutoringList.data)
       } else {
         setAuth(false)
       }
@@ -31,7 +37,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header auth={auth} user={user}/>
+      <Header auth={auth} user={user} tutorings={userTutorings}/>
       <Registerform />
       <Home auth={auth}/>
       <Objetivo />

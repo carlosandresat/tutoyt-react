@@ -2,13 +2,12 @@ import React from "react";
 import Login from "./Login";
 import Tutorings from "./Tutorings";
 import { logout } from "../api/login.api";
-import { getSessionsByStudent } from "../api/session.api";
 import axios from "axios";
 
 function Header(props) {
 
     const [isListActive, setIsListActive] = React.useState(false);
-    const [userTutorings, setUserTutorings] = React.useState([]);
+
 
     axios.defaults.withCredentials = true;
 
@@ -24,7 +23,7 @@ function Header(props) {
     }
     
 
-    const approvedTutorings = userTutorings.filter(tutoring => tutoring.status === 'approved').map(item =>{
+    const approvedTutorings = props.tutorings.filter(tutoring => tutoring.status === 'approved').map(item =>{
         return(
                 <Tutorings
                     key={item.id}
@@ -33,7 +32,7 @@ function Header(props) {
         )
     });
 
-    const requestedTutorings = userTutorings.filter(tutoring => tutoring.status === 'requested').map(item =>{
+    const requestedTutorings = props.tutorings.filter(tutoring => tutoring.status === 'requested').map(item =>{
         return(
                 <Tutorings
                     key={item.id}
@@ -46,11 +45,8 @@ function Header(props) {
         document.getElementById('theLogin').classList.add('popup');
     };
 
-    const handleClickAsignaturas = async event => {
+    const handleClickAsignaturas = event => {
         setIsListActive(prevCount => !prevCount);
-        const response = await getSessionsByStudent(props.user)
-        setUserTutorings(response.data)
-        console.log(response.data)
     };
 
     
