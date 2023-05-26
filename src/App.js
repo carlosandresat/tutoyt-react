@@ -24,6 +24,10 @@ function App() {
     setUserTutorings((prevTutorings) => prevTutorings.filter((tutoring) => tutoring.id !== tutoringId));
   }
 
+  const handleNewTutoring = (tutoring) => {
+    setUserTutorings((prevTutorings) => [...prevTutorings, tutoring])
+  }
+
   useEffect(() => {
     async function verifyUser(){
       const response = await authorizeUser()
@@ -48,7 +52,7 @@ function App() {
       <section className="asignaturas" id="asignaturas">
         <h1 className="heading"> Nuestras <span>asignaturas</span> </h1>
         <div className="box-container" id="assignments">
-          <Asignaturas auth={auth} user={user}/>
+          <Asignaturas auth={auth} user={user} onRequest={handleNewTutoring}/>
         </div>
       </section>
       <section class="tutores" id="tutores">

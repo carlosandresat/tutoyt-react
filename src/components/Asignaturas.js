@@ -36,7 +36,7 @@ function Asignaturas(props) {
                     }
                 </div>
             ))}
-            <Tutoringform tutors={tutorsList} courseName={selectedCourse} user={props.user}></Tutoringform>
+            <Tutoringform tutors={tutorsList} courseName={selectedCourse} user={props.user} onRequest={props.onRequest}></Tutoringform>
         </Fragment>
     );
 }

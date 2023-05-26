@@ -31,6 +31,7 @@ function Tutoringform(props) {
                 const data = {className: props.courseName, ...values, student: props.user}
                 try {
                     const response = await requestSession(data)
+                    props.onRequest(response.data)
                 } catch (error) {
                     console.log(error)
                 }
