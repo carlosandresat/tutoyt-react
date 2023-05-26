@@ -141,6 +141,16 @@ section{
     border-width: 5px;
 }
 
+.header .cart-items-container p{
+    font-size: 1.5rem; 
+    padding: 1.5rem;
+}
+
+.header .cart-items-container h1{
+    font-size: 2rem; 
+    margin-top: 1.5rem;
+}
+
 .header .cart-items-container.active{
     right: 0;
 }

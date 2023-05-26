@@ -2,7 +2,6 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import { Pagination } from "swiper";
 import "swiper/css";
 import "swiper/css/pagination";
-import tutoresData from "../data/tutores";
 import { useState, useEffect } from "react";
 import { SERVER_URL } from "../config";
 
@@ -17,27 +16,6 @@ function Tutores() {
     }, []);
 
 
-    const tutores = tutoresData.map(item => {
-        return(
-          <SwiperSlide className="box">
-            <a href="#" className="btn">Conócelo</a>
-            <div className="image">
-                <img src={process.env.PUBLIC_URL + `/images/${item.id}.jpeg`} alt="" />
-            </div>
-            <div className="content">
-                <h3>{item.name}</h3>
-                <div className="stars">
-                    <i className="fas fa-star"></i>
-                </div>
-                <div className="rating">
-                    {item.rating} <span>({item.nReviews} reviews)</span>
-                </div>
-            </div>
-          </SwiperSlide> 
-        )
-    })
-
-
     const drawStars = (nstars) => {
         const stars = []
         for(let i = 0; i < Math.trunc(nstars); i++){
@@ -50,11 +28,9 @@ function Tutores() {
         }
         return stars
     }
-    const prueba = 'holi'
 
     const tutoresdata = tutors.map(tutor => (
         <SwiperSlide className="box">
-            <a href="#" className="btn">Conócelo</a>
             <div className="image">
                 <img src={process.env.PUBLIC_URL + `/images/${tutor.id}.jpeg`} alt="" />
             </div>

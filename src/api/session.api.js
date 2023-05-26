@@ -6,3 +6,6 @@ export const requestSession = async (session) =>
 
 export const getSessionsByStudent = async (user) =>
     await axios.get(`${SERVER_URL}/session/${user}`)
+
+export const cancelTutoring = async (id) =>
+    await axios.put(`${SERVER_URL}/session/cancel/${id}`)

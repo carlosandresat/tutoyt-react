@@ -1,17 +1,13 @@
 import React from "react";
 import Login from "./Login";
-import userData from "../data/userData";
 import Tutorings from "./Tutorings";
 import { logout } from "../api/login.api";
 import { getSessionsByStudent } from "../api/session.api";
-import { useState, useEffect } from 'react';
 import axios from "axios";
 
 function Header(props) {
 
-    const [isActive, setIsActive] = React.useState(false);
     const [isListActive, setIsListActive] = React.useState(false);
-    const [userLogged, setUserLogged] = React.useState('');
     const [userTutorings, setUserTutorings] = React.useState([]);
 
     axios.defaults.withCredentials = true;
@@ -28,12 +24,21 @@ function Header(props) {
     }
     
 
-    const tutorings = userTutorings.map(item =>{
+    const approvedTutorings = userTutorings.filter(tutoring => tutoring.status === 'approved').map(item =>{
         return(
-            <Tutorings
-                key={item.id}
-                {...item}
-            />
+                <Tutorings
+                    key={item.id}
+                    {...item}
+                />            
+        )
+    });
+
+    const requestedTutorings = userTutorings.filter(tutoring => tutoring.status === 'requested').map(item =>{
+        return(
+                <Tutorings
+                    key={item.id}
+                    {...item}
+                />            
         )
     });
 
@@ -78,7 +83,16 @@ function Header(props) {
                 </div>
 
                 <div className={isListActive ? "cart-items-container active" : "cart-items-container"} id="asignaturas-list">
-                    {tutorings}
+                    <h1>Tutorías aprobadas:</h1>
+                    {approvedTutorings.length === 0 ? 
+                    <p><center>No hay tutorías aprobadas</center></p> : 
+                    approvedTutorings}
+                    
+                    <h1>Tutorías solicitadas:</h1>
+                    {requestedTutorings.length === 0 ? 
+                    <p><center>No has solicitado tutorías</center></p> : 
+                    requestedTutorings}
+
                 </div>           
 
             </header>
