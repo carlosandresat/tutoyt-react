@@ -18,6 +18,7 @@ function App() {
   const [auth, setAuth] = useState(false)
   const [user, setUser] = useState('')
   const [userTutorings, setUserTutorings] = useState([]);
+  const [userType, setUserType] = useState(null)
 
 
   const handleDeleteTutoring = (tutoringId) => {
@@ -34,6 +35,7 @@ function App() {
       if (response.data.Status === "Success"){
         setAuth(true)
         setUser(response.data.user)
+        setUserType(response.data.type)
         const tutoringList = await getSessionsByStudent(response.data.user)
         setUserTutorings(tutoringList.data)
       } else {
@@ -48,7 +50,9 @@ function App() {
       <Header auth={auth} user={user} tutorings={userTutorings} onDelete={handleDeleteTutoring}/>
       <Registerform />
       <Home auth={auth}/>
-      <Objetivo />
+      {
+        userType !== 1 && <Objetivo />
+      }
       <section className="asignaturas" id="asignaturas">
         <h1 className="heading"> Nuestras <span>asignaturas</span> </h1>
         <div className="box-container" id="assignments">

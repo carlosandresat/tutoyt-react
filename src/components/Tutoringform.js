@@ -94,22 +94,6 @@ function Tutoringform(props) {
         </Formik>
         </div>
         
-        //<div className="login-form" id="tutoringForm">
-        //    <form action="">
-        //        <h3>{props.courseName}</h3>
-        //        <input type="text" placeholder="Username" className="box" ref={props.inputUser} />
-        //        <select className="box">
-        //            {props.tutors.map(tutor =>(
-        //                <option>{tutor.name}</option>
-        //            ))}
-        //        </select>
-        //        <input type="date" className="box"></input>
-        //        <input type="time" className="box"></input>
-        //        <p>No tienes una cuenta? <a href="#home">Regístrate ya!</a></p>
-        //        <input type="button" className="btn" value="Login" onClick={props.handleLogin} />
-        //        <i className="fas fa-times" onClick={handleClickCloseUser}></i>
-        //    </form>
-        //</div>
     );
 }
 
