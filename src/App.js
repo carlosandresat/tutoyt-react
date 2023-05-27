@@ -6,10 +6,11 @@ import Asignaturas from './components/Asignaturas';
 import Tutores from './components/Tutores';
 import Footer from './components/Footer';
 import Registerform from './components/Registerform';
+import TutorView from './components/TutorView';
 import { useState, useEffect } from 'react';
 
 import { authorizeUser } from './api/login.api';
-import { getSessionsByStudent } from "./api/session.api";
+import { getSessionsByStudent} from "./api/session.api";
 
 
 
@@ -18,7 +19,9 @@ function App() {
   const [auth, setAuth] = useState(false)
   const [user, setUser] = useState('')
   const [userTutorings, setUserTutorings] = useState([]);
+
   const [userType, setUserType] = useState(null)
+
 
 
   const handleDeleteTutoring = (tutoringId) => {
@@ -30,9 +33,9 @@ function App() {
   }
 
   useEffect(() => {
-    async function verifyUser(){
+    async function verifyUser() {
       const response = await authorizeUser()
-      if (response.data.Status === "Success"){
+      if (response.data.Status === "Success") {
         setAuth(true)
         setUser(response.data.user)
         setUserType(response.data.type)
@@ -47,16 +50,18 @@ function App() {
 
   return (
     <div className="App">
-      <Header auth={auth} user={user} tutorings={userTutorings} onDelete={handleDeleteTutoring}/>
+      <Header auth={auth} user={user} tutorings={userTutorings} onDelete={handleDeleteTutoring} />
       <Registerform />
-      <Home auth={auth}/>
+      <Home auth={auth} />
       {
         userType !== 1 && <Objetivo />
       }
+      { userType === 1 && <TutorView auth={auth} user={user}/> }
+
       <section className="asignaturas" id="asignaturas">
         <h1 className="heading"> Nuestras <span>asignaturas</span> </h1>
         <div className="box-container" id="assignments">
-          <Asignaturas auth={auth} user={user} onRequest={handleNewTutoring}/>
+          <Asignaturas auth={auth} user={user} onRequest={handleNewTutoring} />
         </div>
       </section>
       <section class="tutores" id="tutores">

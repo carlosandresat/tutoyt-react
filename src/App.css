@@ -380,6 +380,59 @@ section{
     line-height: 1.8;
 }
 
+/* */
+.tutor-view .box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+    gap:1.5rem;
+}
+
+.tutor-view .box-container .tuto-box{
+    padding: 1.5rem 4rem;
+    text-align:left ;
+    border:var(--border);  
+}
+
+.tutor-view .box-container .tuto-box .buttons{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2rem;
+}
+
+.tutor-view .box-container .tuto-box .buttons button{
+    font-size: 1.6rem;
+    padding: 0.6rem 1rem;
+}
+
+.tutor-view .box-container .tuto-box:hover{
+    background:#667f813f;
+}
+
+.tutor-view .box-container .tuto-box h3{
+    color: #fff;
+    font-size: 2.2rem;
+    padding:1rem 0;
+    text-align: center;
+}
+
+.tutor-view .box-container .tuto-box p{
+    color: #fff;
+    font-size: 1.8rem;
+    padding: 0.2rem 0 ;
+}
+
+.tutor-view .box-container .tuto-box p i{
+    font-size: 1.8rem;
+}
+
+.tutor-view .box-container .tuto-box p span{
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: bolder;
+}
+
+/* */
+
 .asignaturas .box-container{
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
