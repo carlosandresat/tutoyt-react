@@ -1,6 +1,23 @@
 import { Fragment } from "react";
+import { acceptTutoring, cancelTutoring } from "../api/session.api";
 
-function TutoringItem({id, topic, status, date, time, classname, student}) {
+function TutoringItem({id, topic, status, date, time, classname, student, onDelete, onAccept}) {
+
+    const handleClickCancelTutoring = async () => {
+        if (window.confirm("¿Estás seguro que quieres cancelar la tutoría?") === true){
+            await cancelTutoring(id)
+            onDelete(id)
+        }
+    }
+
+    const handleClickAcceptTutoring = async () => {
+        if (window.confirm("¿Estás seguro que quieres aceptar la tutoría?") === true){
+            await acceptTutoring(id)
+            onAccept(id)
+        }
+    }
+
+
 
     return(
         
@@ -14,9 +31,9 @@ function TutoringItem({id, topic, status, date, time, classname, student}) {
                     <div className="buttons">
                     {
                         status==='requested' && <Fragment>
-                        <button className="btn">Aceptar</button>
+                        <button className="btn" onClick={handleClickAcceptTutoring}>Aceptar</button>
                         <button className="btn">Proponer cambios</button>
-                        <button className="btn">Cancelar</button>
+                        <button className="btn" onClick={handleClickCancelTutoring}>Cancelar</button>
                         </Fragment>
                     }
                     </div>

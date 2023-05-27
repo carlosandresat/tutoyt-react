@@ -13,6 +13,27 @@ function TutorView({ user }) {
         getTutorings()
     }, [])
 
+    const handleDeleteTutoring = (tutoringId) => {
+        setTutoringList((prevTutorings) => {
+            return prevTutorings.map((tutoring) => {
+                if(tutoring.id === tutoringId) {
+                    return {...tutoring, status: 'canceled'}
+                }
+                return tutoring
+            });
+        })
+    }
+
+    const handleAcceptTutoring = (tutoringId) => {
+        setTutoringList((prevTutorings) => {
+            return prevTutorings.map((tutoring) => {
+                if(tutoring.id === tutoringId) {
+                    return {...tutoring, status: 'accepted'}
+                }
+                return tutoring
+            });
+        })
+    }
 
     return (
         <Fragment>
@@ -20,7 +41,7 @@ function TutorView({ user }) {
                 <h1 className="heading"> Tus <span>tutorías</span> </h1>
                 <div className="box-container" id="assignments">
                     {tutoringList.map(tuto => (
-                        <TutoringItem {...tuto} />
+                        <TutoringItem {...tuto} onDelete={handleDeleteTutoring} onAccept={handleAcceptTutoring}/>
                     ))}
 
                 </div>
