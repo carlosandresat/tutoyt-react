@@ -1,3 +1,5 @@
+import { Fragment } from "react";
+
 function TutoringItem({id, topic, status, date, time, classname, student}) {
 
     return(
@@ -8,16 +10,23 @@ function TutoringItem({id, topic, status, date, time, classname, student}) {
                     <p><i className="fas fa-calendar"></i>  {date}</p>
                     <p><i className="fas fa-clock"></i>  {time}</p>
                     <p><span>Tema: </span>{topic}</p>
+
+                    <div className="buttons">
                     {
-                        status==='requested' && <div className="buttons">
+                        status==='requested' && <Fragment>
                         <button className="btn">Aceptar</button>
                         <button className="btn">Proponer cambios</button>
-                        <button className="btn">Rechazar</button>
-                        </div>
+                        <button className="btn">Cancelar</button>
+                        </Fragment>
                     }
-                    
-                    
+                    </div>
 
+                    {
+                        status==='accepted' && <h2>Aceptada</h2>
+                    }
+                    {
+                        status==='canceled' && <h2>Cancelada</h2>
+                    }
                 </div>
            
     );

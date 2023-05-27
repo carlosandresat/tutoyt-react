@@ -66,7 +66,6 @@ function Header(props) {
                     <a href="#objetivo">Objetivo</a>
                     <a href="#asignaturas">Asignaturas</a>
                     <a href="#tutores">Tutores</a>
-                    <a href="#review">Reviews</a>
                 </nav>
 
                 <div className="icons">

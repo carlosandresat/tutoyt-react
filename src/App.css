@@ -415,6 +415,14 @@ section{
     text-align: center;
 }
 
+.tutor-view .box-container .tuto-box h2{
+    color: var(--main-color);
+    font-weight: bolder;
+    font-size: 2.5rem;
+    padding:1rem 0;
+    text-align: center;
+}
+
 .tutor-view .box-container .tuto-box p{
     color: #fff;
     font-size: 1.8rem;
