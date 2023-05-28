@@ -30,7 +30,11 @@ function Tutoringform(props) {
             }}
             validationSchema={tutoringSchema}
             onSubmit={async (values, actions) => {
-                const data = {className: props.courseName, ...values, student: props.user}
+                const date_r = new Date(values.date)
+                const date_f = date_r.getFullYear() + '-' + ((date_r.getMonth() > 8) ? (date_r.getMonth() + 1) : ('0' + (date_r.getMonth() + 1))) + '-' + ((date_r.getDate() > 9) ? date_r.getDate() : ('0' + date_r.getDate())) 
+        
+                const data = {className: props.courseName, ...values, date: date_f, student: props.user}
+                
                 try {
                     const response = await requestSession(data)
                     props.onRequest(response.data)

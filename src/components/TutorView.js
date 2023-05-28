@@ -1,9 +1,11 @@
 import { Fragment, useState, useEffect } from "react";
 import TutoringItem from "./TutoringItem";
 import { getSessionsByTutor } from "../api/session.api";
+import TutoringChanges from "./TutoringChanges";
 
 function TutorView({ user }) {
     const [tutoringList, setTutoringList] = useState([]);
+    const [selectedTutoring, setSelectedTutoring] = useState({});
 
     useEffect(() => {
         async function getTutorings() {
@@ -35,18 +37,38 @@ function TutorView({ user }) {
         })
     }
 
+    const handleOpenChanges = (tutoringId) => {
+        const data = tutoringList.filter(
+            (tutoring) => 
+            tutoring.id === tutoringId
+        )
+
+        const date_r = new Date(data[0].date_raw)
+        const date_f = date_r.getFullYear() + '-' + ((date_r.getMonth() > 8) ? (date_r.getMonth() + 1) : ('0' + (date_r.getMonth() + 1))) + '-' + ((date_r.getDate() > 9) ? date_r.getDate() : ('0' + date_r.getDate())) 
+
+        const initialValues = {
+            id: data[0].id,
+            date: date_f,
+            time: data[0].time,
+            place: "Aun no xd",
+            topic: data[0].topic
+        }
+
+        setSelectedTutoring(initialValues);
+    }
+
     return (
         <Fragment>
             <section className="tutor-view" id="asignaturas">
                 <h1 className="heading"> Tus <span>tutorías</span> </h1>
                 <div className="box-container" id="assignments">
                     {tutoringList.map(tuto => (
-                        <TutoringItem {...tuto} onDelete={handleDeleteTutoring} onAccept={handleAcceptTutoring}/>
+                        <TutoringItem {...tuto} onDelete={handleDeleteTutoring} onAccept={handleAcceptTutoring} onEdit={handleOpenChanges}/>
                     ))}
-
                 </div>
+                
             </section>
-
+            <TutoringChanges requested={selectedTutoring} />
         </Fragment>
     );
 }

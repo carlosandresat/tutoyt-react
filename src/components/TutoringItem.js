@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { acceptTutoring, cancelTutoring } from "../api/session.api";
 
-function TutoringItem({id, topic, status, date, time, classname, student, onDelete, onAccept}) {
+function TutoringItem({id, topic, status, date, time, classname, student, onDelete, onAccept, onEdit}) {
 
     const handleClickCancelTutoring = async () => {
         if (window.confirm("¿Estás seguro que quieres cancelar la tutoría?") === true){
@@ -17,7 +17,10 @@ function TutoringItem({id, topic, status, date, time, classname, student, onDele
         }
     }
 
-
+    const handleClickChanges = event => {
+        document.getElementById('tutoringChangeForm').classList.add('popup');
+        onEdit(id)
+    };
 
     return(
         
@@ -32,7 +35,7 @@ function TutoringItem({id, topic, status, date, time, classname, student, onDele
                     {
                         status==='requested' && <Fragment>
                         <button className="btn" onClick={handleClickAcceptTutoring}>Aceptar</button>
-                        <button className="btn">Proponer cambios</button>
+                        <button className="btn" onClick={handleClickChanges}>Proponer cambios</button>
                         <button className="btn" onClick={handleClickCancelTutoring}>Cancelar</button>
                         </Fragment>
                     }

@@ -254,13 +254,19 @@ section{
 .login-form form h3{
     font-size: 3rem;
     color: #fff;
-    padding:1rem 0;
+    padding:1.5rem 0;
 }
 
 .login-form form h4{
     font-size: 2rem;
     color: #fff;
     padding:1rem 0;
+}
+
+.login-form form label{
+    font-size: 2rem;
+    color: #fff;
+    padding:1rem 1rem;
 }
 
 .login-form form .box{
