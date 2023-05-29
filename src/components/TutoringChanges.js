@@ -12,7 +12,7 @@ import {
 } from '../api/session.api';
 
 
-function TutoringChanges({requested}) {
+function TutoringChanges({requested, handleChangeTutoring}) {
 
     const handleClickCloseUser = event => {
         document.getElementById('tutoringChangeForm').classList.remove('popup');
@@ -65,7 +65,7 @@ function TutoringChanges({requested}) {
                     : values.changeTime === true && values.changePlace === true && values.changeTopic === true
                     ? await updateAll(requested.id, { date: values.date, time: values.time, place: values.place, topic: values.topic })
                     : null
-                    console.log(values.date)
+                    handleChangeTutoring(requested.id, response.data)
                     actions.resetForm()
                 }}
             >
