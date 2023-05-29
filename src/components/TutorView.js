@@ -65,6 +65,7 @@ function TutorView({ user }) {
                     {tutoringList.map(tuto => (
                         <TutoringItem {...tuto} onDelete={handleDeleteTutoring} onAccept={handleAcceptTutoring} onEdit={handleOpenChanges}/>
                     ))}
+                    {tutoringList.length === 0 && <div className="tuto-box"><h3>No tienes tutorías</h3></div>}
                 </div>
                 
             </section>
