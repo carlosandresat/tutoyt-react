@@ -37,6 +37,17 @@ function TutorView({ user }) {
         })
     }
 
+    const handleChangeTutoring = (tutoringId, changes) => {
+        setTutoringList((prevTutorings) => {
+            return prevTutorings.map((tutoring) => {
+                if(tutoring.id === tutoringId) {
+                    return {...tutoring, ...changes}
+                }
+                return tutoring
+            });
+        })
+    }
+
     const handleOpenChanges = (tutoringId) => {
         const data = tutoringList.filter(
             (tutoring) => 
@@ -69,7 +80,7 @@ function TutorView({ user }) {
                 </div>
                 
             </section>
-            <TutoringChanges requested={selectedTutoring} />
+            <TutoringChanges requested={selectedTutoring} handleChangeTutoring={handleChangeTutoring}/>
         </Fragment>
     );
 }
