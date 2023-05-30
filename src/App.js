@@ -7,6 +7,7 @@ import Tutores from './components/Tutores';
 import Footer from './components/Footer';
 import Registerform from './components/Registerform';
 import TutorView from './components/TutorView';
+import StudentView from './components/StudentView';
 import { useState, useEffect } from 'react';
 
 import { authorizeUser } from './api/login.api';
@@ -54,9 +55,11 @@ function App() {
       <Registerform />
       <Home auth={auth} />
       {
-        userType !== 1 && <Objetivo />
+        auth === false && <Objetivo />
       }
       { userType === 1 && <TutorView auth={auth} user={user}/> }
+      { auth && <StudentView auth={auth} user={user} /> }
+      
 
       <section className="asignaturas" id="asignaturas">
         <h1 className="heading"> Nuestras <span>asignaturas</span> </h1>
