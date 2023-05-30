@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { acceptTutoring, cancelTutoring } from "../api/session.api";
 
-function TutoringItem({id, topic, status, date, time, classname, student, onDelete, onAccept, onEdit}) {
+function TutoringItem({id, topic, place, status, date, time, classname, student, onDelete, onAccept, onEdit}) {
 
     const handleClickCancelTutoring = async () => {
         if (window.confirm("¿Estás seguro que quieres cancelar la tutoría?") === true){
@@ -29,7 +29,9 @@ function TutoringItem({id, topic, status, date, time, classname, student, onDele
                     <p><i className="fas fa-user"></i>  {student}</p>
                     <p><i className="fas fa-calendar"></i>  {date}</p>
                     <p><i className="fas fa-clock"></i>  {time}</p>
-                    <p><span>Tema: </span>{topic}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> {place}</p>
+
+                    <p><i class="fas fa-book-reader"></i> {topic}</p>
 
                     <div className="buttons">
                     {

@@ -61,7 +61,7 @@ function TutorView({ user }) {
             id: data[0].id,
             date: date_f,
             time: data[0].time,
-            place: "Aun no xd",
+            place: data[0].place,
             topic: data[0].topic
         }
 
