@@ -49,6 +49,9 @@ function TutoringItem({id, topic, place, status, date, time, classname, student,
                     {
                         status==='canceled' && <h2>Cancelada</h2>
                     }
+                    {
+                        status==='changed' && <h2>Esperando confirmación de los cambios</h2>
+                    }
                 </div>
            
     );

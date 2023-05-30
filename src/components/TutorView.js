@@ -41,7 +41,7 @@ function TutorView({ user }) {
         setTutoringList((prevTutorings) => {
             return prevTutorings.map((tutoring) => {
                 if(tutoring.id === tutoringId) {
-                    return {...tutoring, ...changes}
+                    return {...tutoring, ...changes, status: 'changed'}
                 }
                 return tutoring
             });
