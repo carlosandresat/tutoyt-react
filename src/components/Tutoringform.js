@@ -11,11 +11,16 @@ function Tutoringform(props) {
         
     };
 
+    const today = new Date();
+    today.setHours(0, 0, 0, 0)
+    
+
     const tutoringSchema = Yup.object().shape({
         tutor: Yup.string().required('Tutor requerido'),
-        date: Yup.date().required().min(new Date(), 'La fecha debe ser con un dia de anticipación'),
+        date: Yup.date().required().min(today, 'La fecha debe ser con un dia de anticipación'),
         time: Yup.string().required('Debes ingresar una fecha'),
-        topic: Yup.string().required('Debes ingresar un tema').min(4, 'Describe mejor el tema')
+        place: Yup.string().required('Debes ingresar un lugar').max(50, 'Usa menos caracteres'),
+        topic: Yup.string().required('Debes ingresar un tema').min(4, 'Describe mejor el tema').max(50, 'Usa menos caracteres'),
     })
 
  
@@ -26,6 +31,7 @@ function Tutoringform(props) {
                 tutor: "",
                 date:"",
                 time: "",
+                place: "",
                 topic: ""
             }}
             validationSchema={tutoringSchema}
@@ -76,13 +82,23 @@ function Tutoringform(props) {
                     type="time" className="box" name="time" onChange={handleChange}
                     value={values.time}>
                     </input>
+
+                    <h4>Lugar tutoría:</h4>
+                    {errors.place && touched.place ? (
+                            <p>{errors.place}</p>
+                    ): null}
+                    <textarea rows="3" cols="80"
+                        type="text" placeholder="Detalla tu lugar: Biblioteca, aula, salón... (max. 50 caracteres)" className="box"
+                        name='place' onChange={handleChange} value={values.place}
+                    />
+
                     
                     <h4>Tema tutoría:</h4>
                     {errors.topic && touched.topic ? (
                             <p>{errors.topic}</p>
                     ): null}
                     <textarea rows="3" cols="80"
-                        type="text" placeholder="Detalla tu tema (max. 30 caracteres)" className="box"
+                        type="text" placeholder="Detalla tu tema (max. 50 caracteres)" className="box"
                         name='topic' onChange={handleChange} value={values.topic}
                     />
 

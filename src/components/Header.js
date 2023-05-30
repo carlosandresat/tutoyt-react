@@ -23,7 +23,7 @@ function Header(props) {
     }
     
 
-    const approvedTutorings = props.tutorings.filter(tutoring => tutoring.status === 'approved').map(item =>{
+    const approvedTutorings = props.tutorings.filter(tutoring => tutoring.status === 'accepted').map(item =>{
         return(
                 <Tutorings
                     key={item.id}
