@@ -31,7 +31,7 @@ function Footer({userType}) {
 
 
             <div className="credit">
-                Developed by <span>Carlos Arévalo</span> | © TutoYT v0.2
+                Developed by <span>Carlos Arévalo</span> | © TutoYT v0.3
             </div>
         </section>
     )
