@@ -42,6 +42,7 @@ function App() {
         setUserType(response.data.type)
         const tutoringList = await getSessionsByStudent(response.data.user)
         setUserTutorings(tutoringList.data)
+        console.log(tutoringList.data)
       } else {
         setAuth(false)
         setUser('')
@@ -59,14 +60,14 @@ function App() {
       {
         auth === false && <Objetivo />
       }
-      { userType === 1 && <TutorView auth={auth} user={user}/> }
-      { auth && <StudentView auth={auth} user={user} /> }
+      { userType === 1 && <TutorView auth={auth} user={user} tutoringList={userTutorings} setTutoringList={setUserTutorings}/> }
+      { auth && <StudentView auth={auth} user={user} tutoringList={userTutorings} setTutoringList={setUserTutorings}/> }
       
 
       <section className="asignaturas" id="asignaturas">
         <h1 className="heading"> Nuestras <span>asignaturas</span> </h1>
         <div className="box-container" id="assignments">
-          <Asignaturas auth={auth} user={user} onRequest={handleNewTutoring} />
+          <Asignaturas auth={auth} user={user} onRequest={handleNewTutoring} tutoringList={userTutorings} setTutoringList={setUserTutorings} />
         </div>
       </section>
       <section class="tutores" id="tutores">

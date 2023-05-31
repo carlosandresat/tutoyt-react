@@ -2,16 +2,7 @@ import { Fragment, useState, useEffect } from "react";
 import StudentItem from "./StudentItem";
 import { getSessionsByStudent } from "../api/session.api";
 
-function StudentView({ user }) {
-    const [tutoringList, setTutoringList] = useState([]);
-
-    useEffect(() => {
-        async function getTutorings() {
-            const response = await getSessionsByStudent(user)
-            setTutoringList(response.data)
-        }
-        getTutorings()
-    }, [])
+function StudentView({ user, tutoringList, setTutoringList }) {
 
     const handleDeleteTutoring = (tutoringId) => {
         setTutoringList((prevTutorings) => {
