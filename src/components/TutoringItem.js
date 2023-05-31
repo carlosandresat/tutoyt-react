@@ -42,7 +42,9 @@ function TutoringItem({id, topic, place, status, date, time, classname, student,
                         </Fragment>
                     }
                     </div>
-
+                    {
+                        status==='done' && <h2>¡Gracias por usar TutoYT!</h2>
+                    }
                     {
                         status==='accepted' && <h2>Aceptada</h2>
                     }
