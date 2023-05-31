@@ -1,1 +1,1 @@
-export const SERVER_URL = 'http://192.168.20.100:9000'
+export const SERVER_URL = 'https://tutoyt-server-production.up.railway.app/'
