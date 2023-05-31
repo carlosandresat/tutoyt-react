@@ -63,7 +63,16 @@ function Header(props) {
 
                 <nav className="navbar">
                     <a href="#home">Inicio</a>
-                    <a href="#objetivo">Objetivo</a>
+                    {
+                        !props.auth && <a href="#objetivo">Objetivo</a>
+
+                    }
+                    {
+                        props.userType === 1 && <a href="#tutor-view">Tutor</a>
+                    }
+                    {
+                        props.userType != null && <a href="#student-view">Estudiante</a>
+                    }
                     <a href="#asignaturas">Asignaturas</a>
                     <a href="#tutores">Tutores</a>
                 </nav>

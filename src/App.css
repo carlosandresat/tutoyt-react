@@ -614,6 +614,10 @@ section{
 
 .tutores .box-container .box .image img{
     height: 25rem;
+    aspect-ratio: 0.75;
+    border-radius: 1rem;
+    object-fit: cover;
+
 }
 
 .tutores .box-container .box .content h3{

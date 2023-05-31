@@ -70,8 +70,8 @@ function TutorView({ user }) {
 
     return (
         <Fragment>
-            <section className="tutor-view" id="asignaturas">
-                <h1 className="heading"> Tus <span>tutorías</span> </h1>
+            <section className="tutor-view" id="tutor-view">
+                <h1 className="heading"> Tus <span>tutorías (Tutor)</span> </h1>
                 <div className="box-container" id="assignments">
                     {tutoringList.map(tuto => (
                         <TutoringItem {...tuto} onDelete={handleDeleteTutoring} onAccept={handleAcceptTutoring} onEdit={handleOpenChanges}/>

@@ -44,6 +44,8 @@ function App() {
         setUserTutorings(tutoringList.data)
       } else {
         setAuth(false)
+        setUser('')
+        setUserType(null)
       }
     }
     verifyUser()
@@ -51,7 +53,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header auth={auth} user={user} tutorings={userTutorings} onDelete={handleDeleteTutoring} />
+      <Header auth={auth} userType={userType} user={user} tutorings={userTutorings} onDelete={handleDeleteTutoring} />
       <Registerform />
       <Home auth={auth} />
       {
@@ -71,7 +73,7 @@ function App() {
         <h1 class="heading"> Nuestros <span>tutores</span> </h1>
         <Tutores />
       </section>
-      <Footer />
+      <Footer userType={userType}/>
     </div>
   );
 }

@@ -1,17 +1,26 @@
-function Footer() {
+function Footer({userType}) {
     return(
         <section className="footer">
 
             <div className="links">
                 <a href="#home">Inicio</a>
-                <a href="#objetivo">Objetivo</a>
+                {
+                    userType === 1 
+                    ? <a href="#tutor-view">Tutor</a>
+                    : null
+                }
+                {
+                    userType === 1 || userType === 0 
+                    ? <a href="#student-view">Estudiante</a>
+                    : <a href="#objetivo">Objetivo</a>
+                }
                 <a href="#asignaturas">Asignaturas</a>
                 <a href="#tutores">Tutores</a>
-                <a href="#reviews">Reviews</a>
             </div>
 
 
             <div className="share">
+                <a href="https://carlosandresat.netlify.app/" target={"_blank"} className="fas fa-laptop-code"></a>
                 <a href="https://open.spotify.com/user/12141348471?si=bb3a11dc843345da" target={"_blank"} className="fab fa-brands fa-spotify"></a>
                 <a href="https://twitter.com/carlosandresat" target={"_blank"} className="fab fa-twitter"></a>
                 <a href="https://www.instagram.com/carlosandresat/" target={"_blank"} className="fab fa-instagram"></a>
