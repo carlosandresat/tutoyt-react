@@ -36,3 +36,6 @@ export const updatePlaceTopic = async (id, placetopic) =>
 
 export const updateAll = async (id, all) =>
     await axios.put(`${SERVER_URL}/session/update/all/${id}`, all)
+
+export const rateTutoring = async (id, rate) =>
+    await axios.put(`${SERVER_URL}/session/rate/${id}`, rate)

@@ -1,7 +1,18 @@
 import { Fragment } from "react";
-import { acceptTutoring, cancelTutoring } from "../api/session.api";
+import { acceptTutoring, cancelTutoring, rateTutoring } from "../api/session.api";
+import { StarRating } from "./StarRating";
+import { useState } from "react";
 
-function StudentItem({id, topic, place, status, date, time, name, tutor, changes, onDelete, onAccept}) {
+function StudentItem({id, topic, place, status, date, time, name, tutor, changes, onDelete, onAccept, onRate}) {
+
+    const [rating, setRating] = useState(0);
+    const [hover, setHover] = useState(0);
+
+    const handleClickRate = async () => {
+        await rateTutoring(id, {rate: rating})
+        onRate(id)
+    }
+
 
     const handleClickCancelTutoring = async () => {
         if (window.confirm("¿Estás seguro que quieres cancelar la tutoría?") === true){
@@ -17,6 +28,16 @@ function StudentItem({id, topic, place, status, date, time, name, tutor, changes
         }
     }
 
+    const today = new Date();
+
+    const isTutoringDone = () => {
+        const day = date.split('/')[0]
+        const hour = time.split(':')[0]
+        const minute = time.split(':')[1]
+
+        const condition = day == today.getDate() && (parseInt(hour) < today.getHours() ||  (parseInt(hour) == today.getHours() && parseInt(minute) < today.getMinutes()))
+        return condition
+    }
     return(
         
                 <div className="tuto-box">
@@ -35,10 +56,19 @@ function StudentItem({id, topic, place, status, date, time, name, tutor, changes
                         <button className="btn" onClick={handleClickCancelTutoring}>Cancelar</button>
                         </Fragment>
                     }
+                    {
+                        status==='accepted' && isTutoringDone() ? <Fragment>
+                        <StarRating rating={rating} hover={hover} setRating={setRating} setHover={setHover} />
+                        <button className="btn" onClick={handleClickRate}>Calificar</button>
+                        </Fragment> : null
+                    }
                     </div>
 
                     {
-                        status==='accepted' && <h2>Aceptada</h2>
+                        status==='accepted' && !isTutoringDone() && <h2>Aceptada</h2>
+                    }
+                    {
+                        status==='done' && <h2>¡Gracias por usar TutoYT!</h2>
                     }
                     {
                         status==='canceled' && <h2>Cancelada</h2>

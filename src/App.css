@@ -73,6 +73,22 @@ section{
     border-radius: 1rem;
 }
 
+.star {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.star.on {
+    color:#fff;
+}
+
+.star.off {
+    color: var(--main-color);
+}
+
+
 .btn:hover{
     box-shadow: 0 0.5em 0.5em -0.4em var(--main-color);
     transform: translateY(-0.25em);
@@ -461,9 +477,15 @@ section{
 }
 
 .student-view .box-container .tuto-box .buttons{
+    padding-top: 2rem;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 2rem;
+}
+
+.student-view .box-container .tuto-box .buttons .star-rating{
+    padding: 0.2rem 0rem;
+    display: flex;
 }
 
 .student-view .box-container .tuto-box .buttons button{
