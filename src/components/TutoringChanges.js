@@ -66,6 +66,7 @@ function TutoringChanges({requested, handleChangeTutoring}) {
                     ? await updateAll(requested.id, { date: values.date, time: values.time, place: values.place, topic: values.topic })
                     : null
                     handleChangeTutoring(requested.id, response.data)
+                    document.getElementById('tutoringChangeForm').classList.remove('popup');
                     actions.resetForm()
                 }}
             >
