@@ -9,8 +9,16 @@ function StudentItem({id, topic, place, status, date, time, name, tutor, changes
     const [hover, setHover] = useState(0);
 
     const handleClickRate = async () => {
-        await rateTutoring(id, {rate: rating})
-        onRate(id)
+        if(rating === 0) {
+            if (window.confirm("¿Seguro que quieres calificar con 0 estrellas?") === true) {
+                await rateTutoring(id, {rate: rating})
+                onRate(id)
+            }
+        }
+        else {
+            await rateTutoring(id, {rate: rating})
+            onRate(id)
+        }
     }
 
 
@@ -35,9 +43,10 @@ function StudentItem({id, topic, place, status, date, time, name, tutor, changes
         const hour = time.split(':')[0]
         const minute = time.split(':')[1]
 
-        const condition = day == today.getDate() && (parseInt(hour) < today.getHours() ||  (parseInt(hour) == today.getHours() && parseInt(minute) < today.getMinutes()))
+        const condition = parseInt(day) === today.getDate() && (parseInt(hour) < today.getHours() ||  (parseInt(hour) === today.getHours() && parseInt(minute) < today.getMinutes()))
         return condition
     }
+
     return(
         
                 <div className="tuto-box">
@@ -45,7 +54,7 @@ function StudentItem({id, topic, place, status, date, time, name, tutor, changes
                     <p><i className="fas fa-user"></i>  {tutor}</p>
                     <p><i className="fas fa-calendar"></i>  {date}</p>
                     <p><i className="fas fa-clock"></i>  {time}</p>
-                    <p><i class="fas fa-map-marker-alt"></i> {place}</p>
+                    <p><i className="fas fa-map-marker-alt"></i> {place}</p>
 
                     <p><i class="fas fa-book-reader"></i> {topic}</p>
 
