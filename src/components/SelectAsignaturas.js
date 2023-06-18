@@ -3,6 +3,10 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 import * as Toggle from '@radix-ui/react-toggle';
 import { Fragment, useState } from 'react';
 import { getClassesByTutor } from '../api/classes.api';
+import { 
+    insertTutorClass, 
+    deleteTutorClass 
+} from '../api/tutors.api';
 
 import '../RadixCSS/dialog.css'
 import '../RadixCSS/toogle.css'
@@ -13,8 +17,14 @@ function SelectAsigaturas() {
     const [open, setOpen] = useState(false)
     const [asignaturas, setAsignaturas] = useState([])
 
-    const handleSaveClick = () => {
-        console.log(asignaturas.filter((asignatura) => asignatura.is_tutor === 1).map((asignatura) => asignatura.id))
+    const handleSaveClick = async () => {
+        const classes = asignaturas.filter((asignatura) => asignatura.is_tutor === 1).map((asignatura) => asignatura.id)
+
+        await deleteTutorClass(1)
+
+        classes.map(async(clase) => {
+            await insertTutorClass({id_tutor: 1, id_class: clase})
+        })
     }
 
     const asignaturasTutor = (asignaturaId) => {
