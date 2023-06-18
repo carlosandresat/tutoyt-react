@@ -2,6 +2,7 @@ import { Fragment, useState, useEffect } from "react";
 import TutoringItem from "./TutoringItem";
 import { getSessionsByTutor } from "../api/session.api";
 import TutoringChanges from "./TutoringChanges";
+import SelectAsigaturas from "./SelectAsignaturas";
 
 function TutorView({ user }) {
     const [tutoringList, setTutoringList] = useState([]);
@@ -72,6 +73,8 @@ function TutorView({ user }) {
         <Fragment>
             <section className="tutor-view" id="tutor-view">
                 <h1 className="heading"> Tus <span>tutorías (Tutor)</span> </h1>
+                <SelectAsigaturas/>
+
                 <div className="box-container" id="assignments">
                     {tutoringList.map(tuto => (
                         <TutoringItem {...tuto} onDelete={handleDeleteTutoring} onAccept={handleAcceptTutoring} onEdit={handleOpenChanges}/>

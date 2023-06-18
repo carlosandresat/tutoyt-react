@@ -42,7 +42,6 @@ function App() {
         setUserType(response.data.type)
         const tutoringList = await getSessionsByStudent(response.data.user)
         setUserTutorings(tutoringList.data)
-        console.log(tutoringList.data)
       } else {
         setAuth(false)
         setUser('')
