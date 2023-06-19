@@ -14,6 +14,8 @@ import { useState, useEffect } from 'react';
 import { authorizeUser } from './api/login.api';
 import { getSessionsByStudent} from "./api/session.api";
 
+import { TutoringContextProvider } from './context/TutoringContext';
+
 
 
 function App() {
@@ -25,7 +27,6 @@ function App() {
   const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
-
   }, [])
 
   const handleDeleteTutoring = (tutoringId) => {
@@ -37,6 +38,7 @@ function App() {
   }
 
   return (
+    <TutoringContextProvider>
     <div className="App">
       <Header auth={isAuthenticated} userType={userType} user={userId} tutorings={userTutorings} onDelete={handleDeleteTutoring} />
       <Registerform />
@@ -44,7 +46,7 @@ function App() {
       {
         isAuthenticated === false && <Objetivo />
       }
-      { (user ? user.role === 'tutor' : false) && <TutorView auth={isAuthenticated} user={userId} tutoringList={userTutorings} setTutoringList={setUserTutorings}/> }
+      { (user ? user.role === 'tutor' : false) && <TutorView  user={userId}/> }
       { isAuthenticated && <StudentView auth={isAuthenticated} user={userId} tutoringList={userTutorings} setTutoringList={setUserTutorings}/> }
       
 
@@ -60,6 +62,7 @@ function App() {
       </section>
       <Footer userType={userType}/>
     </div>
+    </TutoringContextProvider>
   );
 }
 

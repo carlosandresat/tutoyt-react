@@ -772,7 +772,7 @@ section{
 
 .tutores .box-container .box .image img{
     height: 25rem;
-    aspect-ratio: 0.75;
+    aspect-ratio: 1;
     border-radius: 1rem;
     object-fit: cover;
 
