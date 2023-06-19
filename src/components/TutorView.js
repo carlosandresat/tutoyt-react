@@ -3,18 +3,22 @@ import TutoringItem from "./TutoringItem";
 import { getSessionsByTutor } from "../api/session.api";
 import TutoringChanges from "./TutoringChanges";
 import SelectAsigaturas from "./SelectAsignaturas";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useTutorings } from "../context/TutoringContext";
 
-function TutorView({ user }) {
+function TutorView() {
     const [tutoringList, setTutoringList] = useState([]);
     const [selectedTutoring, setSelectedTutoring] = useState({});
 
+    const { user, isAuthenticated } = useAuth0();
+    const { loadTutorTutorings } = useTutorings();
+
     useEffect(() => {
-        async function getTutorings() {
-            const response = await getSessionsByTutor(user)
-            setTutoringList(response.data)
-        }
-        getTutorings()
+      if (isAuthenticated) {
+        //loadTutorTutorings(user.user_id);
+      }
     }, [])
+
 
     const handleDeleteTutoring = (tutoringId) => {
         setTutoringList((prevTutorings) => {

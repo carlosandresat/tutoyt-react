@@ -14,7 +14,7 @@ import { useState, useEffect } from 'react';
 import { authorizeUser } from './api/login.api';
 import { getSessionsByStudent} from "./api/session.api";
 
-import { TutoringContextProvider } from './context/TutoringContext';
+import { TutoringContextProvider, useTutorings } from './context/TutoringContext';
 
 
 
@@ -26,8 +26,6 @@ function App() {
 
   const { user, isAuthenticated } = useAuth0();
 
-  useEffect(() => {
-  }, [])
 
   const handleDeleteTutoring = (tutoringId) => {
     setUserTutorings((prevTutorings) => prevTutorings.filter((tutoring) => tutoring.id !== tutoringId));
