@@ -3,12 +3,13 @@ import Login from "./Login";
 import Tutorings from "./Tutorings";
 import { logout } from "../api/login.api";
 import axios from "axios";
+import { useAuth0 } from "@auth0/auth0-react";
 
 function Header(props) {
 
     const [isListActive, setIsListActive] = React.useState(false);
 
-
+    const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
     axios.defaults.withCredentials = true;
 
     //Login
@@ -78,13 +79,13 @@ function Header(props) {
                 </nav>
 
                 <div className="icons">
-                    {props.auth ?
+                    {isAuthenticated ?
                     <div>
-                    <div className="fas fa-power-off" id="logout-btn" onClick={handleLogout}></div>
+                    <div className="fas fa-power-off" id="logout-btn" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}></div>
                     <div className="fas fa-bars" id="asignaturas-btn" onClick={handleClickAsignaturas}></div>
                     </div>
                     :
-                    <div className="fas fa-user" id="user-btn" onClick={handleClickUser}></div>
+                    <div className="fas fa-user" id="user-btn" onClick={() => loginWithRedirect()}></div>
                     }
                 </div>
 

@@ -1,4 +1,5 @@
 import './App.css';
+import { useAuth0 } from '@auth0/auth0-react';
 import Header from './components/Header';
 import Home from './components/Home';
 import Objetivo from './components/Objetivo';
@@ -16,14 +17,16 @@ import { getSessionsByStudent} from "./api/session.api";
 
 
 function App() {
-
-  const [auth, setAuth] = useState(false)
-  const [user, setUser] = useState('')
+  const [userId, setUserId] = useState('')
   const [userTutorings, setUserTutorings] = useState([]);
 
-  const [userType, setUserType] = useState(null)
+  const [userType, setUserType] = useState('')
 
+  const { user, isAuthenticated } = useAuth0();
 
+  useEffect(() => {
+
+  }, [])
 
   const handleDeleteTutoring = (tutoringId) => {
     setUserTutorings((prevTutorings) => prevTutorings.filter((tutoring) => tutoring.id !== tutoringId));
@@ -33,40 +36,22 @@ function App() {
     setUserTutorings((prevTutorings) => [...prevTutorings, tutoring])
   }
 
-  useEffect(() => {
-    async function verifyUser() {
-      const response = await authorizeUser()
-      if (response.data.Status === "Success") {
-        setAuth(true)
-        setUser(response.data.user)
-        setUserType(response.data.type)
-        const tutoringList = await getSessionsByStudent(response.data.user)
-        setUserTutorings(tutoringList.data)
-      } else {
-        setAuth(false)
-        setUser('')
-        setUserType(null)
-      }
-    }
-    verifyUser()
-  }, [])
-
   return (
     <div className="App">
-      <Header auth={auth} userType={userType} user={user} tutorings={userTutorings} onDelete={handleDeleteTutoring} />
+      <Header auth={isAuthenticated} userType={userType} user={userId} tutorings={userTutorings} onDelete={handleDeleteTutoring} />
       <Registerform />
-      <Home auth={auth} />
+      <Home auth={isAuthenticated} />
       {
-        auth === false && <Objetivo />
+        isAuthenticated === false && <Objetivo />
       }
-      { userType === 1 && <TutorView auth={auth} user={user} tutoringList={userTutorings} setTutoringList={setUserTutorings}/> }
-      { auth && <StudentView auth={auth} user={user} tutoringList={userTutorings} setTutoringList={setUserTutorings}/> }
+      { (user ? user.role === 'tutor' : false) && <TutorView auth={isAuthenticated} user={userId} tutoringList={userTutorings} setTutoringList={setUserTutorings}/> }
+      { isAuthenticated && <StudentView auth={isAuthenticated} user={userId} tutoringList={userTutorings} setTutoringList={setUserTutorings}/> }
       
 
       <section className="asignaturas" id="asignaturas">
         <h1 className="heading"> Nuestras <span>asignaturas</span> </h1>
         <div className="box-container" id="assignments">
-          <Asignaturas auth={auth} user={user} onRequest={handleNewTutoring} tutoringList={userTutorings} setTutoringList={setUserTutorings} />
+          <Asignaturas auth={isAuthenticated} user={userId} onRequest={handleNewTutoring} tutoringList={userTutorings} setTutoringList={setUserTutorings} />
         </div>
       </section>
       <section class="tutores" id="tutores">

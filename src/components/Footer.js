@@ -1,4 +1,9 @@
+import { useAuth0 } from "@auth0/auth0-react";
+
 function Footer({userType}) {
+
+    const { user, isAuthenticated } = useAuth0();
+    
     return(
         <section className="footer">
 
