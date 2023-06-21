@@ -11,7 +11,6 @@ function StudentView() {
     useEffect(() => {
       if (isAuthenticated) {
         loadStudentTutorings(user.user_id);
-        console.log("loadStudentTutorings")
       }
     }, [])
   
