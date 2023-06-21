@@ -1,58 +1,10 @@
 import React from "react";
-import Login from "./Login";
-import Tutorings from "./Tutorings";
-import { logout } from "../api/login.api";
-import axios from "axios";
 import { useAuth0 } from "@auth0/auth0-react";
 
-function Header(props) {
+function Header() {
 
-    const [isListActive, setIsListActive] = React.useState(false);
-
-    const { loginWithRedirect, logout, isAuthenticated } = useAuth0();
-    axios.defaults.withCredentials = true;
-
-    //Login
-
-    const handleLogout = async () => {
-        const response = await logout()
-        if (response.data.Status === "Success"){
-            window.location.reload(true)
-        } else {
-            alert("Error al Logout")
-        }
-    }
-    
-
-    const approvedTutorings = props.tutorings.filter(tutoring => tutoring.status === 'accepted').map(item =>{
-        return(
-                <Tutorings
-                    key={item.id}
-                    {...item}
-                    onDelete = {props.onDelete}
-                />            
-        )
-    });
-
-    const requestedTutorings = props.tutorings.filter(tutoring => tutoring.status === 'requested').map(item =>{
-        return(
-                <Tutorings
-                    key={item.id}
-                    {...item}
-                    onDelete = {props.onDelete}
-                />            
-        )
-    });
-
-    const handleClickUser = event => {
-        document.getElementById('theLogin').classList.add('popup');
-    };
-
-    const handleClickAsignaturas = event => {
-        setIsListActive(prevCount => !prevCount);
-    };
-
-    
+    const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+        
     return (
         <div>
         
@@ -65,14 +17,14 @@ function Header(props) {
                 <nav className="navbar">
                     <a href="#home">Inicio</a>
                     {
-                        !props.auth && <a href="#objetivo">Objetivo</a>
+                        !isAuthenticated && <a href="#objetivo">Objetivo</a>
 
                     }
                     {
-                        props.userType === 1 && <a href="#tutor-view">Tutor</a>
+                        (user ? user.role === 'tutor' : false) && <a href="#tutor-view">Tutor</a>
                     }
                     {
-                        props.userType != null && <a href="#student-view">Estudiante</a>
+                        isAuthenticated && <a href="#student-view">Estudiante</a>
                     }
                     <a href="#asignaturas">Asignaturas</a>
                     <a href="#tutores">Tutores</a>
@@ -80,30 +32,13 @@ function Header(props) {
 
                 <div className="icons">
                     {isAuthenticated ?
-                    <div>
                     <div className="fas fa-power-off" id="logout-btn" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}></div>
-                    <div className="fas fa-bars" id="asignaturas-btn" onClick={handleClickAsignaturas}></div>
-                    </div>
                     :
-                    <div className="fas fa-user" id="user-btn" onClick={() => loginWithRedirect()}></div>
+                    <button className="btn" id="user-btn" onClick={() => loginWithRedirect()}>Ingresa</button>
                     }
-                </div>
-
-                <div className={isListActive ? "cart-items-container active" : "cart-items-container"} id="asignaturas-list">
-                    <h1>Tutorías aprobadas:</h1>
-                    {approvedTutorings.length === 0 ? 
-                    <p><center>No hay tutorías aprobadas</center></p> : 
-                    approvedTutorings}
-                    
-                    <h1>Tutorías solicitadas:</h1>
-                    {requestedTutorings.length === 0 ? 
-                    <p><center>No has solicitado tutorías</center></p> : 
-                    requestedTutorings}
-
-                </div>           
+                </div>  
 
             </header>
-            <Login/>
         </div>
     );
 }

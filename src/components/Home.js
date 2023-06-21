@@ -1,8 +1,8 @@
-function Home(props) {
+import { useAuth0 } from "@auth0/auth0-react";
 
-    const handleClicRegister = event => {
-        document.getElementById('registerForm').classList.add('popup');
-    };
+function Home() {
+
+    const { isAuthenticated, loginWithRedirect } = useAuth0();
 
     return (
         <section className="home" id="home">
@@ -11,10 +11,10 @@ function Home(props) {
                 <h3>Tutoring Sessions Yachay Tech</h3>
                 <p>Donde nos reunimos en nombre del conomiento</p>
                 {
-                    props.auth ?
+                    isAuthenticated ?
                     null 
                     :
-                    <button onClick={handleClicRegister} className="btn">Regístrate ya!</button>
+                    <button onClick={() => loginWithRedirect()} className="btn">Ingresa ya!</button>
                 }
                 
             </div>

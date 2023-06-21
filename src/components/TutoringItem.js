@@ -1,25 +1,13 @@
 import { Fragment } from "react";
-import { acceptTutoring, cancelTutoring } from "../api/session.api";
+import { useTutorings } from "../context/TutoringContext";
 
-function TutoringItem({id, topic, place, status, date, time, classname, student, onDelete, onAccept, onEdit}) {
+function TutoringItem({id, topic, place, status, date, time, classname, student, loadEdit}) {
 
-    const handleClickCancelTutoring = async () => {
-        if (window.confirm("¿Estás seguro que quieres cancelar la tutoría?") === true){
-            await cancelTutoring(id)
-            onDelete(id)
-        }
-    }
-
-    const handleClickAcceptTutoring = async () => {
-        if (window.confirm("¿Estás seguro que quieres aceptar la tutoría?") === true){
-            await acceptTutoring(id)
-            onAccept(id)
-        }
-    }
+    const { acceptTutoring, cancelTutoring } = useTutorings();
 
     const handleClickChanges = event => {
+        loadEdit(id);
         document.getElementById('tutoringChangeForm').classList.add('popup');
-        onEdit(id)
     };
 
     return(
@@ -36,9 +24,9 @@ function TutoringItem({id, topic, place, status, date, time, classname, student,
                     <div className="buttons">
                     {
                         status==='requested' && <Fragment>
-                        <button className="btn" onClick={handleClickAcceptTutoring}>Aceptar</button>
+                        <button className="btn" onClick={async ()=> await acceptTutoring(id, "tutor")}>Aceptar</button>
                         <button className="btn" onClick={handleClickChanges}>Proponer cambios</button>
-                        <button className="btn" onClick={handleClickCancelTutoring}>Cancelar</button>
+                        <button className="btn" onClick={()=> cancelTutoring(id, "tutor")}>Cancelar</button>
                         </Fragment>
                     }
                     </div>

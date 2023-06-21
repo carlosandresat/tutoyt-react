@@ -1,60 +1,24 @@
 import { Fragment, useState, useEffect } from "react";
 import TutoringItem from "./TutoringItem";
-import { getSessionsByTutor } from "../api/session.api";
 import TutoringChanges from "./TutoringChanges";
 import SelectAsigaturas from "./SelectAsignaturas";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useTutorings } from "../context/TutoringContext";
 
 function TutorView() {
-    const [tutoringList, setTutoringList] = useState([]);
     const [selectedTutoring, setSelectedTutoring] = useState({});
 
     const { user, isAuthenticated } = useAuth0();
-    const { loadTutorTutorings } = useTutorings();
+    const { loadTutorTutorings, tutorTutorings } = useTutorings();
 
     useEffect(() => {
       if (isAuthenticated) {
-        //loadTutorTutorings(user.user_id);
+        loadTutorTutorings(user.user_id);
       }
     }, [])
 
-
-    const handleDeleteTutoring = (tutoringId) => {
-        setTutoringList((prevTutorings) => {
-            return prevTutorings.map((tutoring) => {
-                if(tutoring.id === tutoringId) {
-                    return {...tutoring, status: 'canceled'}
-                }
-                return tutoring
-            });
-        })
-    }
-
-    const handleAcceptTutoring = (tutoringId) => {
-        setTutoringList((prevTutorings) => {
-            return prevTutorings.map((tutoring) => {
-                if(tutoring.id === tutoringId) {
-                    return {...tutoring, status: 'accepted'}
-                }
-                return tutoring
-            });
-        })
-    }
-
-    const handleChangeTutoring = (tutoringId, changes) => {
-        setTutoringList((prevTutorings) => {
-            return prevTutorings.map((tutoring) => {
-                if(tutoring.id === tutoringId) {
-                    return {...tutoring, ...changes, status: 'changed'}
-                }
-                return tutoring
-            });
-        })
-    }
-
     const handleOpenChanges = (tutoringId) => {
-        const data = tutoringList.filter(
+        const data = tutorTutorings.filter(
             (tutoring) => 
             tutoring.id === tutoringId
         )
@@ -80,14 +44,14 @@ function TutorView() {
                 <SelectAsigaturas/>
 
                 <div className="box-container" id="assignments">
-                    {tutoringList.map(tuto => (
-                        <TutoringItem {...tuto} onDelete={handleDeleteTutoring} onAccept={handleAcceptTutoring} onEdit={handleOpenChanges}/>
+                    {tutorTutorings.map(tuto => (
+                        <TutoringItem {...tuto} loadEdit={handleOpenChanges}/>
                     ))}
-                    {tutoringList.length === 0 && <div className="tuto-box"><h3>No tienes tutorías</h3></div>}
+                    {tutorTutorings.length === 0 && <div className="tuto-box"><h3>No tienes tutorías</h3></div>}
                 </div>
                 
             </section>
-            <TutoringChanges requested={selectedTutoring} handleChangeTutoring={handleChangeTutoring}/>
+            <TutoringChanges requested={selectedTutoring}/>
         </Fragment>
     );
 }

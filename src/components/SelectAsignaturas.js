@@ -7,6 +7,9 @@ import {
     insertTutorClass, 
     deleteTutorClass 
 } from '../api/tutors.api';
+import {
+    useAuth0
+} from '@auth0/auth0-react';
 
 import '../RadixCSS/dialog.css'
 import '../RadixCSS/toogle.css'
@@ -17,13 +20,15 @@ function SelectAsigaturas() {
     const [open, setOpen] = useState(false)
     const [asignaturas, setAsignaturas] = useState([])
 
+    const { user } = useAuth0();
+
     const handleSaveClick = async () => {
         const classes = asignaturas.filter((asignatura) => asignatura.is_tutor === 1).map((asignatura) => asignatura.id)
 
-        await deleteTutorClass(1)
+        await deleteTutorClass(user.user_id)
 
         classes.map(async(clase) => {
-            await insertTutorClass({id_tutor: 1, id_class: clase})
+            await insertTutorClass({id_tutor: user.user_id, id_class: clase})
         })
     }
 
@@ -34,7 +39,7 @@ function SelectAsigaturas() {
 
     const handleOpen = async () => {
         if(!open){
-            const result = await getClassesByTutor(1)
+            const result = await getClassesByTutor(user.user_id)
             setAsignaturas(result.data)
         }
         setOpen(!open)

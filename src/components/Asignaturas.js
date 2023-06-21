@@ -2,11 +2,14 @@ import { Fragment, useState, useEffect } from "react";
 import Tutoringform from "./Tutoringform";
 import { getTutorsByClass } from "../api/tutors.api";
 import { SERVER_URL } from "../config";
+import { useAuth0 } from "@auth0/auth0-react";
 
-function Asignaturas(props) {
+function Asignaturas() {
     const [courses, setCourses] = useState([]);
     const [selectedCourse, setSelectedCourse] = useState('xdd');
     const [tutorsList, setTutorsList] = useState([]);
+
+    const { isAuthenticated, loginWithRedirect } = useAuth0();
 
     useEffect(() => {
         fetch(`${SERVER_URL}/asignaturas`)
@@ -17,9 +20,13 @@ function Asignaturas(props) {
 
     async function handleClickClass(id, name) {
         const response = await getTutorsByClass(id)
-        setTutorsList(response.data)
-        setSelectedCourse(name)
-        document.getElementById('tutoringForm').classList.add('popup');
+        if(response.data.message){
+            alert("No hay tutores disponibles para esta asignatura")
+        } else {
+            setTutorsList(response.data)
+            setSelectedCourse(name)
+            document.getElementById('tutoringForm').classList.add('popup');
+        }
     };
 
     return(
@@ -29,14 +36,14 @@ function Asignaturas(props) {
                     <img src = {process.env.PUBLIC_URL + `/images/${course.code}.png`} alt="" />
                     <h3>{course.name}</h3>
                     {
-                        props.auth ?
+                        isAuthenticated ?
                         <button className="btn" onClick={() => handleClickClass(course.id, course.name)}>Consigue tutoría</button>
                         :
-                        <button className="btn" onClick={() => document.getElementById('theLogin').classList.add('popup')}>Consigue tutoría</button>
+                        <button className="btn" onClick={() => loginWithRedirect()}>Consigue tutoría</button>
                     }
                 </div>
             ))}
-            <Tutoringform tutors={tutorsList} courseName={selectedCourse} user={props.user} onRequest={props.onRequest} tutoringList={props.tutoringList} setTutoringList={props.setTutoringList}></Tutoringform>
+            <Tutoringform tutors={tutorsList} courseName={selectedCourse} />
         </Fragment>
     );
 }

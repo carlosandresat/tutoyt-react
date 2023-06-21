@@ -1,8 +1,13 @@
 import {Form, Formik} from 'formik'
 import { requestSession } from "../api/session.api"
+import { useAuth0 } from "@auth0/auth0-react";
+import { useTutorings } from '../context/TutoringContext';
 import * as Yup from 'yup'
 
 function Tutoringform(props) {
+
+    const { user } = useAuth0();
+    const { setStudentTutorings } = useTutorings();
 
     const handleClickCloseUser = event => {
         document.getElementById('tutoringForm').classList.remove('popup');
@@ -10,6 +15,10 @@ function Tutoringform(props) {
         field.value = "";
         
     };
+
+    const handleNewTutoring = (tutoring) => {
+        setStudentTutorings((prevTutorings) => [...prevTutorings, tutoring])
+    }
 
     const today = new Date();
     today.setHours(0, 0, 0, 0)
@@ -39,11 +48,11 @@ function Tutoringform(props) {
                 const date_r = new Date(values.date)
                 const date_f = date_r.getFullYear() + '-' + ((date_r.getMonth() > 8) ? (date_r.getMonth() + 1) : ('0' + (date_r.getMonth() + 1))) + '-' + ((date_r.getDate() > 9) ? date_r.getDate() : ('0' + date_r.getDate())) 
         
-                const data = {className: props.courseName, ...values, date: date_f, student: props.user}
+                const data = {className: props.courseName, ...values, date: date_f, student: user.user_id}
                 
                 try {
                     const response = await requestSession(data)
-                    props.onRequest(response.data)
+                    handleNewTutoring(response.data)
                 } catch (error) {
                     console.log(error)
                 }

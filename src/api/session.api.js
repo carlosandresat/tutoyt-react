@@ -4,16 +4,16 @@ import { SERVER_URL } from "../config";
 export const requestSession = async (session) =>
     await axios.post(`${SERVER_URL}/session`, session)
 
-export const getSessionsByStudent = async (user) =>
-    await axios.get(`${SERVER_URL}/session/${user}`)
+export const getSessionsByStudent = async (id) =>
+    await axios.get(`${SERVER_URL}/session/${id}`)
 
 export const getSessionsByTutor = async (user) =>
     await axios.get(`${SERVER_URL}/session/tutor/${user}`)
 
-export const acceptTutoring = async (id) =>
+export const acceptSession = async (id) =>
     await axios.put(`${SERVER_URL}/session/accept/${id}`)
 
-export const cancelTutoring = async (id) =>
+export const cancelSession = async (id) =>
     await axios.put(`${SERVER_URL}/session/cancel/${id}`)
 
 export const updateDate = async (id, date) =>
@@ -37,5 +37,5 @@ export const updatePlaceTopic = async (id, placetopic) =>
 export const updateAll = async (id, all) =>
     await axios.put(`${SERVER_URL}/session/update/all/${id}`, all)
 
-export const rateTutoring = async (id, rate) =>
+export const rateSession = async (id, rate) =>
     await axios.put(`${SERVER_URL}/session/rate/${id}`, rate)

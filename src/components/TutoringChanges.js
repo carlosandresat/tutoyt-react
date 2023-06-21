@@ -1,18 +1,12 @@
 import {Form, Formik} from 'formik'
 import * as Yup from 'yup'
 import { Fragment } from 'react';
-import { 
-    updateDate,
-    updatePlace,
-    updateTopic,
-    updateDatePlace,
-    updateDateTopic,
-    updatePlaceTopic,
-    updateAll
-} from '../api/session.api';
+import { useTutorings } from "../context/TutoringContext";
 
 
-function TutoringChanges({requested, handleChangeTutoring}) {
+function TutoringChanges({requested}) {
+
+    const { changeTutoring } = useTutorings(); 
 
     const handleClickCloseUser = event => {
         document.getElementById('tutoringChangeForm').classList.remove('popup');
@@ -50,22 +44,7 @@ function TutoringChanges({requested, handleChangeTutoring}) {
             }
             //validationSchema={loginSchema}
                 onSubmit={async (values, actions) => {
-                    const response = values.changeTime === true && values.changePlace === false && values.changeTopic === false
-                    ? await updateDate(requested.id, { date: values.date, time: values.time })
-                    : values.changeTime === false && values.changePlace === true && values.changeTopic === false
-                    ? await updatePlace(requested.id, { place: values.place })
-                    : values.changeTime === false && values.changePlace === false && values.changeTopic === true
-                    ? await updateTopic(requested.id, { topic: values.topic })
-                    : values.changeTime === true && values.changePlace === true && values.changeTopic === false
-                    ? await updateDatePlace(requested.id, { date: values.date, time: values.time, place: values.place })
-                    : values.changeTime === true && values.changePlace === false && values.changeTopic === true
-                    ? await updateDateTopic(requested.id, { date: values.date, time: values.time, topic: values.topic })
-                    : values.changeTime === false && values.changePlace === true && values.changeTopic === true
-                    ? await updatePlaceTopic(requested.id, { place: values.place, topic: values.topic })
-                    : values.changeTime === true && values.changePlace === true && values.changeTopic === true
-                    ? await updateAll(requested.id, { date: values.date, time: values.time, place: values.place, topic: values.topic })
-                    : null
-                    handleChangeTutoring(requested.id, response.data)
+                    await changeTutoring(requested.id, values)
                     document.getElementById('tutoringChangeForm').classList.remove('popup');
                     actions.resetForm()
                 }}
@@ -140,17 +119,6 @@ function TutoringChanges({requested, handleChangeTutoring}) {
                 )}
             </Formik>
         </div>
-
-        //<div className="login-form" id="theLogin">
-        //    <form action="">
-        //        <h3>Login</h3>
-        //        <input type="text" placeholder="Username" className="box" ref={props.inputUser} />
-        //        <input type="password" placeholder="Contraseña" className="box" ref={props.inputPassword} />
-        //        <p>No tienes una cuenta? <a href="#home">Regístrate ya!</a></p>
-        //        <input type="button" className="btn" value="Login" onClick={props.handleLogin} />
-        //        <i className="fas fa-times" onClick={handleClickCloseUser}></i>
-        //    </form>
-        //</div>
     );
 }
 

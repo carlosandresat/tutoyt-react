@@ -1,40 +1,16 @@
 import { Fragment } from "react";
-import { acceptTutoring, cancelTutoring, rateTutoring } from "../api/session.api";
 import { StarRating } from "./StarRating";
 import { useState } from "react";
+import { useTutorings } from "../context/TutoringContext";
 
-function StudentItem({id, topic, place, status, date, time, name, tutor, changes, onDelete, onAccept, onRate}) {
+function StudentItem({id, topic, place, status, date, time, name, tutor, changes}) {
 
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
 
-    const handleClickRate = async () => {
-        if(rating === 0) {
-            if (window.confirm("¿Seguro que quieres calificar con 0 estrellas?") === true) {
-                await rateTutoring(id, {rate: rating})
-                onRate(id)
-            }
-        }
-        else {
-            await rateTutoring(id, {rate: rating})
-            onRate(id)
-        }
-    }
+    const { acceptTutoring, cancelTutoring, rateTutoring } = useTutorings();
 
 
-    const handleClickCancelTutoring = async () => {
-        if (window.confirm("¿Estás seguro que quieres cancelar la tutoría?") === true){
-            await cancelTutoring(id)
-            onDelete(id)
-        }
-    }
-
-    const handleClickAcceptTutoring = async () => {
-        if (window.confirm("¿Estás seguro que quieres aceptar la tutoría?") === true){
-            await acceptTutoring(id)
-            onAccept(id)
-        }
-    }
 
     const today = new Date();
 
@@ -61,14 +37,14 @@ function StudentItem({id, topic, place, status, date, time, name, tutor, changes
                     <div className="buttons">
                     {
                         status==='changed' && <Fragment>
-                        <button className="btn" onClick={handleClickAcceptTutoring}>Aceptar</button>
-                        <button className="btn" onClick={handleClickCancelTutoring}>Cancelar</button>
+                        <button className="btn" onClick={()=> acceptTutoring(id, "student")}>Aceptar</button>
+                        <button className="btn" onClick={()=> cancelTutoring(id, "student")}>Cancelar</button>
                         </Fragment>
                     }
                     {
                         status==='accepted' && isTutoringDone() ? <Fragment>
                         <StarRating rating={rating} hover={hover} setRating={setRating} setHover={setHover} />
-                        <button className="btn" onClick={handleClickRate}>Calificar</button>
+                        <button className="btn" onClick={()=> rateTutoring(id, rating)}>Calificar</button>
                         </Fragment> : null
                     }
                     </div>

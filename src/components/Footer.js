@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 
-function Footer({userType}) {
+function Footer() {
 
     const { user, isAuthenticated } = useAuth0();
     
@@ -10,12 +10,12 @@ function Footer({userType}) {
             <div className="links">
                 <a href="#home">Inicio</a>
                 {
-                    userType === 1 
+                    (user ? user.role === "tutor" : false)
                     ? <a href="#tutor-view">Tutor</a>
                     : null
                 }
                 {
-                    userType === 1 || userType === 0 
+                    isAuthenticated 
                     ? <a href="#student-view">Estudiante</a>
                     : <a href="#objetivo">Objetivo</a>
                 }
@@ -36,7 +36,7 @@ function Footer({userType}) {
 
 
             <div className="credit">
-                Developed by <span>Carlos Arévalo</span> | © TutoYT v0.3
+                Developed by <span>Carlos Arévalo</span> | © TutoYT v0.4
             </div>
         </section>
     )
