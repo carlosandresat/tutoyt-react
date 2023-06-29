@@ -1,13 +1,23 @@
 import * as HoverCard from '@radix-ui/react-hover-card';
 import './Logros.css';
+import { useState } from 'react';
 import { darkTiers } from '../config';
 
 
-const Logro = ({tier, name, description, img_url, owned}) => (
-  <HoverCard.Root>
+const Logro = ({tier, name, description, img_url, owned}) => {
+
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = async () => {
+    setOpen(!open)
+  }
+
+  return(
+  <HoverCard.Root open={open} onOpenChange={handleOpen}>
     <HoverCard.Trigger asChild>
       <div
-        className={`ImageTrigger ${tier ? ` ${tier}` : ''}`}        
+        className={`ImageTrigger ${tier ? ` ${tier}` : ''}`}      
+        onClick={handleOpen}  
       >
         <img
           className={`Image normal ${darkTiers.includes(tier) ? 'invert' : ''}`}
@@ -39,6 +49,6 @@ const Logro = ({tier, name, description, img_url, owned}) => (
       </HoverCard.Content>
     </HoverCard.Portal>
   </HoverCard.Root>
-);
+);}
 
 export default Logro;
