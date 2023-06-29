@@ -742,6 +742,7 @@ section{
 
 /* Tutores */
 .tutores .box-container{
+    z-index: 0;
     padding:1rem;
     padding-bottom: 4rem;
 }
@@ -923,4 +924,10 @@ section{
       font-size: 50%;
   }
 
+}
+
+.logros-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    gap:1.5rem;
 }

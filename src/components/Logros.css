@@ -1,0 +1,262 @@
+@import '@radix-ui/colors/mauve.css';
+
+/* reset */
+a {
+  all: unset;
+}
+
+.HoverCardContent {
+  border-radius: 6px;
+  padding: 20px;
+  width: 300px;
+  background-color: white;
+  box-shadow: hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px;
+  animation-duration: 400ms;
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+.HoverCardContent[data-side='top'] {
+  animation-name: slideDownAndFade;
+}
+.HoverCardContent[data-side='right'] {
+  animation-name: slideLeftAndFade;
+}
+.HoverCardContent[data-side='bottom'] {
+  animation-name: slideUpAndFade;
+}
+.HoverCardContent[data-side='left'] {
+  animation-name: slideRightAndFade;
+}
+
+.HoverCardArrow {
+  fill: white;
+}
+
+.ImageTrigger {
+  background-color: white;
+  cursor: pointer;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 65px;
+  height: 65px;
+}
+.ImageTrigger:focus {
+  box-shadow: 0 0 0 2px white;
+}
+
+.Image {
+  display: block;
+}
+.Image.normal {
+  width: 55px;
+  height: 55px;
+}
+.Image.large {
+  width: 60px;
+  height: 60px;
+}
+
+.Image.invert {
+  -webkit-filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 white);
+  filter: drop-shadow(1px 1px 0 black) drop-shadow(-1px -1px 0 white) invert(1);
+
+}
+
+
+
+.unique {
+  background: linear-gradient(to right, rgb(237, 34, 36), rgb(243, 91, 34), rgb(249, 150, 33), rgb(245, 193, 30), rgb(241, 235, 27) 27%, rgb(241, 235, 27), rgb(241, 235, 27) 33%, rgb(99, 199, 32), rgb(12, 155, 73), rgb(33, 135, 141), rgb(57, 84, 165), rgb(97, 55, 155), rgb(147, 40, 142));
+}
+
+.cubes {
+  background-color:#556;
+background-image: linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+linear-gradient(30deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+linear-gradient(150deg, #445 12%, transparent 12.5%, transparent 87%, #445 87.5%, #445),
+linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a),
+linear-gradient(60deg, #99a 25%, transparent 25.5%, transparent 75%, #99a 75%, #99a);
+background-size:80px 140px;
+background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+}
+
+.bees {
+  background:
+radial-gradient(circle farthest-side at 0% 50%,#313e3f 23.5%,rgba(240,166,17,0) 0)21px 30px,
+radial-gradient(circle farthest-side at 0% 50%,#667f81 24%,rgba(240,166,17,0) 0)19px 30px,
+linear-gradient(#313e3f 14%,rgba(240,166,17,0) 0, rgba(240,166,17,0) 85%,#313e3f 0)0 0,
+linear-gradient(150deg,#313e3f 24%,#667f81 0,#667f81 26%,rgba(240,166,17,0) 0,rgba(240,166,17,0) 74%,#667f81 0,#667f81 76%,#313e3f 0)0 0,
+linear-gradient(30deg,#313e3f 24%,#667f81 0,#667f81 26%,rgba(240,166,17,0) 0,rgba(240,166,17,0) 74%,#667f81 0,#667f81 76%,#313e3f 0)0 0,
+linear-gradient(90deg,#667f81 2%,#313e3f 0,#313e3f 98%,#667f81 0%)0 0 #313e3f;
+background-size: 40px 60px;
+}
+
+.stars-logro {
+  background:
+linear-gradient(324deg, #232927 4%,   transparent 4%) -70px 43px,
+linear-gradient( 36deg, #232927 4%,   transparent 4%) 30px 43px,
+linear-gradient( 72deg, #e3d7bf 8.5%, transparent 8.5%) 30px 43px,
+linear-gradient(288deg, #e3d7bf 8.5%, transparent 8.5%) -70px 43px,
+linear-gradient(216deg, #e3d7bf 7.5%, transparent 7.5%) -70px 23px,
+linear-gradient(144deg, #e3d7bf 7.5%, transparent 7.5%) 30px 23px,
+
+linear-gradient(324deg, #232927 4%,   transparent 4%) -20px 93px,
+linear-gradient( 36deg, #232927 4%,   transparent 4%) 80px 93px,
+linear-gradient( 72deg, #e3d7bf 8.5%, transparent 8.5%) 80px 93px,
+linear-gradient(288deg, #e3d7bf 8.5%, transparent 8.5%) -20px 93px,
+linear-gradient(216deg, #e3d7bf 7.5%, transparent 7.5%) -20px 73px,
+linear-gradient(144deg, #e3d7bf 7.5%, transparent 7.5%) 80px 73px;
+background-color: #232927;
+background-size: 100px 100px;
+}
+
+.seigaiha {
+  background-color:#313e3f;
+background-image:
+radial-gradient(circle at 100% 150%, #313e3f 24%, black 24%, black 28%, #313e3f 28%, #313e3f 36%, black 36%, black 40%, transparent 40%, transparent),
+radial-gradient(circle at 0    150%, #313e3f 24%, black 24%, black 28%, #313e3f 28%, #313e3f 36%, black 36%, black 40%, transparent 40%, transparent),
+radial-gradient(circle at 50%  100%, black 10%, #313e3f 10%, #313e3f 23%, black 23%, black 30%, #313e3f 30%, #313e3f 43%, black 43%, black 50%, #313e3f 50%, #313e3f 63%, black 63%, black 71%, transparent 71%, transparent),
+radial-gradient(circle at 100% 50%, black 5%, #313e3f 5%, #313e3f 15%, black 15%, black 20%, #313e3f 20%, #313e3f 29%, black 29%, black 34%, #313e3f 34%, #313e3f 44%, black 44%, black 49%, transparent 49%, transparent),
+radial-gradient(circle at 0    50%, black 5%, #313e3f 5%, #313e3f 15%, black 15%, black 20%, #313e3f 20%, #313e3f 29%, black 29%, black 34%, #313e3f 34%, #313e3f 44%, black 44%, black 49%, transparent 49%, transparent);
+background-size: 100px 50px;
+}
+
+.upholstery {
+  background:
+radial-gradient(hsl(0, 100%, 27%) 4%, hsl(0, 100%, 18%) 9%, hsla(0, 100%, 20%, 0) 9%) 0 0,
+radial-gradient(hsl(0, 100%, 27%) 4%, hsl(0, 100%, 18%) 8%, hsla(0, 100%, 20%, 0) 10%) 50px 50px,
+radial-gradient(hsla(0, 100%, 30%, 0.8) 20%, hsla(0, 100%, 20%, 0)) 50px 0,
+radial-gradient(hsla(0, 100%, 30%, 0.8) 20%, hsla(0, 100%, 20%, 0)) 0 50px,
+radial-gradient(hsla(0, 100%, 20%, 1) 35%, hsla(0, 100%, 20%, 0) 60%) 50px 0,
+radial-gradient(hsla(0, 100%, 20%, 1) 35%, hsla(0, 100%, 20%, 0) 60%) 100px 50px,
+radial-gradient(hsla(0, 100%, 15%, 0.7), hsla(0, 100%, 20%, 0)) 0 0,
+radial-gradient(hsla(0, 100%, 15%, 0.7), hsla(0, 100%, 20%, 0)) 50px 50px,
+linear-gradient(45deg, hsla(0, 100%, 20%, 0) 49%, hsla(0, 100%, 0%, 1) 50%, hsla(0, 100%, 20%, 0) 70%) 0 0,
+linear-gradient(-45deg, hsla(0, 100%, 20%, 0) 49%, hsla(0, 100%, 0%, 1) 50%, hsla(0, 100%, 20%, 0) 70%) 0 0;
+background-color: #300;
+background-size: 100px 100px;
+}
+
+.carbon-fiber {
+  background:
+  radial-gradient(black 15%, transparent 16%) 0 0,
+  radial-gradient(black 15%, transparent 16%) 8px 8px,
+  radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+  radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+  background-color:#313e3f;
+  background-size:16px 16px;
+}
+
+.checkerboard {
+  background-color: #667f81;
+background-image: linear-gradient(45deg, #313e3f 25%, transparent 25%, transparent 75%, #313e3f 75%, #313e3f),
+linear-gradient(-45deg, #313e3f 25%, transparent 25%, transparent 75%, #313e3f 75%, #313e3f);
+background-size: 60px 60px;
+}
+
+.blueprint-grid {
+  background-color:#313e3f;
+background-image: linear-gradient(#667f81 2px, transparent 2px),
+linear-gradient(90deg, #667f81 2px, transparent 2px),
+linear-gradient(rgba(102, 127, 129,.3) 1px, transparent 1px),
+linear-gradient(90deg, rgba(102, 127, 129,.3) 1px, transparent 1px);
+background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
+
+.bricks {
+  background:
+    linear-gradient(135deg, #708090 10.5px, #313e3f 11px, #313e3f 12px, transparent 12px, transparent 33.5px, #313e3f 33.5px, #313e3f 34.5px, transparent 34.5px),
+    linear-gradient(225deg, #708090 10.5px, #313e3f 11px, #313e3f 12px, transparent 12px, transparent 33.5px, #313e3f 33.5px, #313e3f 34.5px, transparent 34.5px) 0 32px;
+  background-color: #708090;
+  background-size: 32px 64px;
+}
+
+.special {
+  background-color: #667f81;
+background-image: repeating-linear-gradient(transparent, transparent 2.128rem, rgba(0,0,0,.4) 2.128rem, rgba(0,0,0,.4) 2.256rem, transparent 2.256rem, transparent 2.68rem, rgba(0,0,0,.4) 2.68rem, rgba(0,0,0,.4) 2.782rem, transparent 2.782rem, transparent 4.936rem, rgba(0,0,0,.5) 4.936rem, rgba(0,0,0,.5) 7.064rem, rgba(255,255,255,.2) 7.064rem, rgba(255,255,255,.2) 7.234rem, rgba(0,0,0,.5) 7.234rem, rgba(0,0,0,.5) 7.66rem, rgba(255,255,255,.2) 7.66rem, rgba(255,255,255,.2) 7.744rem, rgba(0,0,0,.5) 7.744rem, rgba(0,0,0,.5) 9.872rem, transparent 9.872rem),
+repeating-linear-gradient(270deg, transparent, transparent 2.128rem, rgba(0,0,0,.4) 2.128rem, rgba(0,0,0,.4) 2.256rem, transparent 2.256rem, transparent 2.68rem, rgba(0,0,0,.4) 2.68rem, rgba(0,0,0,.4) 2.782rem, transparent 2.782rem, transparent 4.936rem, rgba(0,0,0,.5) 4.936rem, rgba(0,0,0,.5) 7.064rem, rgba(255,255,255,.2) 7.064rem, rgba(255,255,255,.2) 7.234rem, rgba(0,0,0,.5) 7.234rem, rgba(0,0,0,.5) 7.66rem, rgba(255,255,255,.2) 7.66rem, rgba(255,255,255,.2) 7.744rem, rgba(0,0,0,.5) 7.744rem, rgba(0,0,0,.5) 9.872rem, transparent 9.872rem),
+repeating-linear-gradient(125deg, transparent, transparent 0.085rem, rgba(0,0,0,.2) 0.085rem, rgba(0,0,0,.2) 0.1276rem, transparent 0.1276rem, transparent 0.2128rem, rgba(0,0,0,.2) 0.2128rem);
+
+
+}
+
+
+.diamond {
+  background-color: rgba(102, 127, 129)
+}
+
+.golden {
+  background-color: #ffbf00;
+}
+
+.silver {
+  background-color: #c0c0c0;
+}
+
+.bronze {
+  background-color: #9f7a34;
+}
+
+.Text {
+  margin: 0;
+  color: var(--mauve12);
+  font-size: 15px;
+  line-height: 1.5;
+}
+.Text.faded {
+  color: rgb(0, 0, 0, 0.7);
+}
+.Text.bold {
+  font-weight: 500;
+}
+
+.Text.light {
+  color: white;
+}
+
+@keyframes slideUpAndFade {
+  0% {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideRightAndFade {
+  0% {
+    opacity: 0;
+    transform: translateX(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideDownAndFade {
+  0% {
+    opacity: 0;
+    transform: translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideLeftAndFade {
+  0% {
+    opacity: 0;
+    transform: translateX(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

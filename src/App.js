@@ -8,12 +8,8 @@ import Tutores from './components/Tutores';
 import Footer from './components/Footer';
 import TutorView from './components/TutorView';
 import StudentView from './components/StudentView';
-import { useState } from 'react';
-
 
 import { TutoringContextProvider } from './context/TutoringContext';
-
-
 
 function App() {
 

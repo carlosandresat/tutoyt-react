@@ -4,6 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { useState, useEffect } from "react";
 import { SERVER_URL } from "../config";
+import Profile from "./Profile";
 
 function Tutores() {
     const [tutors, setTutores] = useState([]);
@@ -43,6 +44,7 @@ function Tutores() {
                 <div className="rating">
                     {tutor.rating} <span>({tutor.nreviews} reviews)</span>
                 </div>
+                <Profile user={tutor.id}></Profile>
             </div>
           </SwiperSlide> 
     ))
