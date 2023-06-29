@@ -6,19 +6,15 @@ import { darkTiers } from '../config';
 const Logro = ({tier, name, description, img_url, owned}) => (
   <HoverCard.Root>
     <HoverCard.Trigger asChild>
-      <a
-        className={`ImageTrigger ${tier ? ` ${tier}` : ''}`}
-        href="https://twitter.com/radix_ui"
-        target="_blank"
-        rel="noreferrer noopener"
-        
+      <div
+        className={`ImageTrigger ${tier ? ` ${tier}` : ''}`}        
       >
         <img
           className={`Image normal ${darkTiers.includes(tier) ? 'invert' : ''}`}
           src={img_url}
           alt="Radix UI"
         />
-      </a>
+      </div>
     </HoverCard.Trigger>
     <HoverCard.Portal>
       <HoverCard.Content className={`HoverCardContent ${tier}`} sideOffset={5}>
