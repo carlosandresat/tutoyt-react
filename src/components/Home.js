@@ -9,6 +9,7 @@ function Home() {
 
             <div className="content">
                 <h3>Tutoring Sessions Yachay Tech</h3>
+                <h3>(Fase de pruebas)</h3>
                 <p>Donde nos reunimos en nombre del conomiento</p>
                 {
                     isAuthenticated ?
