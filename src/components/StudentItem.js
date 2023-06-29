@@ -19,7 +19,7 @@ function StudentItem({id, topic, place, status, date, time, name, tutor, changes
         const hour = time.split(':')[0]
         const minute = time.split(':')[1]
 
-        const condition = parseInt(day) === today.getDate() && (parseInt(hour) < today.getHours() ||  (parseInt(hour) === today.getHours() && parseInt(minute) < today.getMinutes()))
+        const condition = (parseInt(day) === today.getDate() ||  parseInt(day) === today.getDate() - 1) && ((parseInt(hour) < today.getHours() ||  (parseInt(hour) === today.getHours() && parseInt(minute) < today.getMinutes())) || parseInt(day) === today.getDate() - 1)
         return condition
     }
 
