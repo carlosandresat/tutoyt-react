@@ -10,6 +10,7 @@ import TutorView from './components/TutorView';
 import StudentView from './components/StudentView';
 
 import { TutoringContextProvider } from './context/TutoringContext';
+//import './push-notifications.js'
 
 function App() {
 
@@ -34,7 +35,7 @@ function App() {
         </div>
       </section>
       <section class="tutores" id="tutores">
-        <h1 class="heading"> Nuestros <span>tutores</span> </h1>
+        <h1 class="heading"> Nuestros <span>orientadores</span> </h1>
         <Tutores />
       </section>
       <Footer/>

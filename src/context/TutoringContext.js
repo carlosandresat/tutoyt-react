@@ -4,7 +4,8 @@ import {
     getSessionsByTutor, 
     acceptSession,
     cancelSession,
-    rateSession,
+    rateTutor,
+    rateStudent,
     updateDate,
     updatePlace,
     updateTopic,
@@ -119,32 +120,50 @@ export const TutoringContextProvider = ({ children }) => {
         }
     }
 
-    const rateTutoring = async (id, rate) => {
+    const submitTutorRate = async (id, rate) => {
         const callback = (prevTutorings) => {
             return prevTutorings.map((tutoring) => {
                 if(tutoring.id === id) {
-                    return {...tutoring, status: 'done'}
+                    return {...tutoring, rate_tutor: rate}
                 }
                 return tutoring
             });
         }
         if (rate === 0) {
             if (window.confirm("¿Seguro que quieres calificar con 0 estrellas?") === true) {
-                await rateSession(id, { rate })
+                await rateTutor(id, { rate })
                 setStudentTutorings(callback)
             }
         } else {
-            await rateSession(id, { rate })
+            await rateTutor(id, { rate })
             setStudentTutorings(callback)
+        }
+    }
+
+    const submitStudentRate = async (id, rate) => {
+        const callback = (prevTutorings) => {
+            return prevTutorings.map((tutoring) => {
+                if(tutoring.id === id) {
+                    return {...tutoring, rate_tutor: rate}
+                }
+                return tutoring
+            });
+        }
+        if (rate === 0) {
+            if (window.confirm("¿Seguro que quieres calificar con 0 estrellas?") === true) {
+                await rateStudent(id, { rate })
+                setTutorTutorings(callback)
+            }
+        } else {
+            await rateStudent(id, { rate })
+            setTutorTutorings(callback)
         }
     }
 
 
 
-
-
     return (
-        <TutoringContext.Provider value={{ studentTutorings, setStudentTutorings, tutorTutorings, setTutorTutorings, loadStudentTutorings, loadTutorTutorings, acceptTutoring, cancelTutoring, rateTutoring, changeTutoring }}>
+        <TutoringContext.Provider value={{ studentTutorings, setStudentTutorings, tutorTutorings, setTutorTutorings, loadStudentTutorings, loadTutorTutorings, acceptTutoring, cancelTutoring, submitTutorRate, submitStudentRate, changeTutoring }}>
             {children}
         </TutoringContext.Provider>
     )

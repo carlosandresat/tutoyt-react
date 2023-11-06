@@ -3,10 +3,10 @@ import Tutoringform from "./Tutoringform";
 import { getTutorsByClass } from "../api/tutors.api";
 import { SERVER_URL } from "../config";
 import { useAuth0 } from "@auth0/auth0-react";
+import TutoringRequest from "./TutoringRequest";
 
 function Asignaturas() {
     const [courses, setCourses] = useState([]);
-    const [selectedCourse, setSelectedCourse] = useState('xdd');
     const [tutorsList, setTutorsList] = useState([]);
 
     const { isAuthenticated, loginWithRedirect } = useAuth0();
@@ -18,14 +18,12 @@ function Asignaturas() {
         .catch(err => console.log(err));
     }, []);
 
-    async function handleClickClass(id, name) {
+    async function handleClickClass(id) {
         const response = await getTutorsByClass(id)
         if(response.data.message){
             alert("No hay tutores disponibles para esta asignatura")
         } else {
             setTutorsList(response.data)
-            setSelectedCourse(name)
-            document.getElementById('tutoringForm').classList.add('popup');
         }
     };
 
@@ -37,13 +35,13 @@ function Asignaturas() {
                     <h3>{course.name}</h3>
                     {
                         isAuthenticated ?
-                        <button className="btn" onClick={() => handleClickClass(course.id, course.name)}>Consigue tutoría</button>
+
+                        <TutoringRequest tutors={tutorsList} courseName={course.name} courseId={course.id} handleClick={handleClickClass} />
                         :
                         <button className="btn" onClick={() => loginWithRedirect()}>Consigue tutoría</button>
                     }
                 </div>
             ))}
-            <Tutoringform tutors={tutorsList} courseName={selectedCourse} />
         </Fragment>
     );
 }

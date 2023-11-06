@@ -17,7 +17,6 @@ function Profile({user}) {
         if(!open){
             const response = await getLogrosByUser(user)
             setLogros(response.data)
-            console.log(response.data)
             // open dialog
         }
         setOpen(!open)

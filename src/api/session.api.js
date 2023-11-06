@@ -10,6 +10,9 @@ export const getSessionsByStudent = async (id) =>
 export const getSessionsByTutor = async (user) =>
     await axios.get(`${SERVER_URL}/session/tutor/${user}`)
 
+export const getTutorSessionsByDate = async (user, date) =>
+    await axios.get(`${SERVER_URL}/session/tutor/${user}/${date}`)
+
 export const acceptSession = async (id) =>
     await axios.put(`${SERVER_URL}/session/accept/${id}`)
 
@@ -37,5 +40,9 @@ export const updatePlaceTopic = async (id, placetopic) =>
 export const updateAll = async (id, all) =>
     await axios.put(`${SERVER_URL}/session/update/all/${id}`, all)
 
-export const rateSession = async (id, rate) =>
-    await axios.put(`${SERVER_URL}/session/rate/${id}`, rate)
+export const rateTutor = async (id, rate) =>
+    await axios.put(`${SERVER_URL}/session/rate/tutor/${id}`, rate)
+
+export const rateStudent = async (id, rate) =>
+    await axios.put(`${SERVER_URL}/session/rate/student/${id}`, rate)
+

@@ -40,7 +40,7 @@ function TutorView() {
     return (
         <Fragment>
             <section className="tutor-view" id="tutor-view">
-                <h1 className="heading"> Tus <span>tutorías (Tutor)</span> </h1>
+                <h1 className="heading"> Tus <span>tutorías (Orientador)</span> </h1>
                 <SelectAsigaturas/>
 
                 <div className="box-container" id="assignments">
