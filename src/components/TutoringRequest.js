@@ -122,7 +122,13 @@ function TutoringRequest(props) {
                 try {
                   console.log(data);
                   const response = await requestSession(data);
-                  handleNewTutoring(response.data);
+                  const newTutoring = {
+                    ...response.data,
+                    tutor: props.tutors.find(
+                      (tutor) => tutor.id === response.data.tutor
+                    ).name,
+                  };
+                  handleNewTutoring(newTutoring);
                 } catch (error) {
                   console.log(error);
                 }

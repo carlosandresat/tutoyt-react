@@ -90,7 +90,7 @@ function StudentItem({
       </div>
 
       {status === "accepted" && !isTutoringDone() && <h2>Aceptada</h2>}
-      {rate_tutor !== null && <h2>¡Gracias por usar TutoYT!</h2>}
+      {rate_tutor != null && <h2>¡Gracias por usar TutoYT!</h2>}
       {status === "canceled" && <h2>Cancelada</h2>}
       {status === "changed" && (
         <Fragment>
