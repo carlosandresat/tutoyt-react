@@ -22,6 +22,7 @@ function Asignaturas() {
         const response = await getTutorsByClass(id)
         if(response.data.message){
             alert("No hay tutores disponibles para esta asignatura")
+            setTutorsList([])
         } else {
             setTutorsList(response.data)
         }
