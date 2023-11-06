@@ -98,7 +98,7 @@ function TutoringItem({
           </Fragment>
         ) : null}
       </div>
-      {rate_student !== null && <h2>¡Gracias por usar TutoYT!</h2>}
+      {rate_student != null && <h2>¡Gracias por usar TutoYT!</h2>}
       {status === "accepted" && !isTutoringDone() && <h2>Aceptada</h2>}
       {status === "canceled" && <h2>Cancelada</h2>}
       {status === "changed" && <h2>Esperando confirmación de los cambios</h2>}
