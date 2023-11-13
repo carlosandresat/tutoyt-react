@@ -1,5 +1,4 @@
 import './App.css';
-import { useAuth0 } from '@auth0/auth0-react';
 import Header from './components/Header';
 import Home from './components/Home';
 import Objetivo from './components/Objetivo';
@@ -8,13 +7,29 @@ import Tutores from './components/Tutores';
 import Footer from './components/Footer';
 import TutorView from './components/TutorView';
 import StudentView from './components/StudentView';
+import { useEffect, useState } from 'react';
+import { authorizeUser } from './api/login.api';
 
 import { TutoringContextProvider } from './context/TutoringContext';
 //import './push-notifications.js'
 
 function App() {
 
-  const { user, isAuthenticated } = useAuth0();
+  const [isLogged, setIsLogged] = useState(false)
+  const [userRole, setUserRole] = useState("")
+
+  useEffect(() => {
+      async function validate() {
+          const response = await authorizeUser();
+          console.log(response)
+          if(response.data.Status){
+              setIsLogged(true)
+              setUserRole(response.data.status)
+          }
+      }
+      validate();
+  }, []);
+
 
   return (
     <TutoringContextProvider>
@@ -22,10 +37,10 @@ function App() {
       <Header />
       <Home />
       {
-        isAuthenticated === false && <Objetivo />
+        isLogged === false && <Objetivo />
       }
-      { (user ? user.role === 'tutor' : false) && <TutorView /> }
-      { isAuthenticated && <StudentView /> }
+      { userRole === 'orientador' && <TutorView /> }
+      { isLogged && <StudentView /> }
       
 
       <section className="asignaturas" id="asignaturas">

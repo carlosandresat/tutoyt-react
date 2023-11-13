@@ -1,8 +1,21 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { useEffect, useState } from "react";
+import { authorizeUser } from "../api/login.api";
+import LoginForm from "./LoginForm";
 
 function Home() {
 
-    const { isAuthenticated, loginWithRedirect } = useAuth0();
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+        async function validate() {
+            const response = await authorizeUser();
+            console.log(response)
+            if(response.data.Status){
+                setIsLogged(true)
+            }
+        }
+        validate();
+    }, []);
 
     return (
         <section className="home" id="home">
@@ -12,10 +25,10 @@ function Home() {
                 <h3>(Fase de pruebas)</h3>
                 <p>Donde nos reunimos en nombre del conomiento</p>
                 {
-                    isAuthenticated ?
+                    isLogged ?
                     null 
                     :
-                    <button onClick={() => loginWithRedirect()} className="btn">Ingresa ya!</button>
+                    <LoginForm text="Ingresa ya!"></LoginForm>
                 }
                 
             </div>

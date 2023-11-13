@@ -1,12 +1,12 @@
 import {Form, Formik} from 'formik'
 import { requestSession } from "../api/session.api"
-import { useAuth0 } from "@auth0/auth0-react";
 import { useTutorings } from '../context/TutoringContext';
 import { useEffect, useState } from 'react';
 import { getAvailableTimes} from "./AvailableTimes"
 import { getTutorSessionsByDate } from "../api/session.api";
 import * as Yup from 'yup'
 import * as Dialog from '@radix-ui/react-dialog';
+import { authorizeUser } from '../api/login.api';
 
 
 function Tutoringform(props) {
@@ -18,7 +18,19 @@ function Tutoringform(props) {
         setAvailableTimes(updatedAvailableTimes);
     }
 
-    const { user } = useAuth0();
+    const [userId, setUserId] = useState("")
+
+    useEffect(() => {
+        async function validate() {
+            const response = await authorizeUser();
+            console.log(response)
+            if(response.data.Status){
+                setUserId(response.data.id)
+            }
+        }
+        validate();
+    }, []);
+
     const { setStudentTutorings } = useTutorings();
 
     const handleClickCloseUser = event => {
@@ -75,7 +87,7 @@ function Tutoringform(props) {
                 const date_r = new Date(values.date)
                 const date_f = date_r.getFullYear() + '-' + ((date_r.getMonth() > 8) ? (date_r.getMonth() + 1) : ('0' + (date_r.getMonth() + 1))) + '-' + ((date_r.getDate() > 9) ? date_r.getDate() : ('0' + date_r.getDate())) 
         
-                const data = {className: props.courseName, ...values, date: date_f, student: user.user_id}
+                const data = {className: props.courseName, ...values, date: date_f, student: userId}
 
                 const datetime = new Date([date_f, values.time])
                 const datenow = new Date()

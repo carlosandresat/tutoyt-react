@@ -1,18 +1,23 @@
 import { Fragment, useEffect } from "react";
 import StudentItem from "./StudentItem";
-import { useAuth0 } from "@auth0/auth0-react";
+import { authorizeUser } from "../api/login.api";
 import { useTutorings } from "../context/TutoringContext";
 
 function StudentView() {
 
-    const { user, isAuthenticated } = useAuth0();
     const { loadStudentTutorings, studentTutorings } = useTutorings();
 
     useEffect(() => {
-      if (isAuthenticated) {
-        loadStudentTutorings(user.user_id);
-      }
-    }, [])
+        async function validate() {
+            const response = await authorizeUser();
+            console.log(response)
+            if(response.data.Status){
+                loadStudentTutorings(response.data.id)
+            }
+        }
+        validate();
+    }, []);
+
   
 
     return (

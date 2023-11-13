@@ -1,8 +1,23 @@
-import { useAuth0 } from "@auth0/auth0-react";
+import { authorizeUser } from "../api/login.api";
+import { useEffect, useState } from "react";
 
 function Footer() {
 
-    const { user, isAuthenticated } = useAuth0();
+    const [isLogged, setIsLogged] = useState(false)
+    const [userRole, setUserRole] = useState("")
+
+    useEffect(() => {
+        async function validate() {
+            const response = await authorizeUser();
+            console.log(response)
+            if(response.data.Status){
+                setIsLogged(true)
+                setUserRole(response.data.status)
+            }
+        }
+        validate();
+    }, []);
+
     
     return(
         <section className="footer">
@@ -10,12 +25,12 @@ function Footer() {
             <div className="links">
                 <a href="#home">Inicio</a>
                 {
-                    (user ? user.role === "tutor" : false)
+                    userRole === "orientador"
                     ? <a href="#tutor-view">Tutor</a>
                     : null
                 }
                 {
-                    isAuthenticated 
+                    isLogged 
                     ? <a href="#student-view">Estudiante</a>
                     : <a href="#objetivo">Objetivo</a>
                 }

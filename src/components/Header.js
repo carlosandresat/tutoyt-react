@@ -1,9 +1,25 @@
 import React from "react";
-import { useAuth0 } from "@auth0/auth0-react";
+import LoginForm from "./LoginForm";
+import { useEffect, useState } from "react";
+import { authorizeUser, logout } from "../api/login.api";
 
 function Header() {
 
-    const { loginWithRedirect, logout, isAuthenticated, user } = useAuth0();
+    const [isLogged, setIsLogged] = useState(false)
+    const [userRole, setUserRole] = useState("")
+
+    useEffect(() => {
+        async function validate() {
+            const response = await authorizeUser();
+            console.log(response)
+            if(response.data.Status){
+                setIsLogged(true)
+                setUserRole(response.data.status)
+            }
+        }
+        validate();
+    }, []);
+    
         
     return (
         <div>
@@ -17,24 +33,24 @@ function Header() {
                 <nav className="navbar">
                     <a href="#home">Inicio</a>
                     {
-                        !isAuthenticated && <a href="#objetivo">Objetivo</a>
+                        !isLogged && <a href="#objetivo">Objetivo</a>
 
                     }
                     {
-                        (user ? user.role === 'tutor' : false) && <a href="#tutor-view">Tutor</a>
+                        userRole === 'orientador' && <a href="#tutor-view">Tutor</a>
                     }
                     {
-                        isAuthenticated && <a href="#student-view">Estudiante</a>
+                        isLogged && <a href="#student-view">Estudiante</a>
                     }
                     <a href="#asignaturas">Asignaturas</a>
                     <a href="#tutores">Tutores</a>
                 </nav>
 
                 <div className="icons">
-                    {isAuthenticated ?
-                    <div className="fas fa-power-off" id="logout-btn" onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}></div>
+                    {isLogged ?
+                    <div className="fas fa-power-off" id="logout-btn" onClick={async() => {await logout(); window.location.reload();}}></div>
                     :
-                    <button className="btn" id="user-btn" onClick={() => loginWithRedirect()}>Ingresa</button>
+                    <LoginForm text="Ingresa"></LoginForm>
                     }
                 </div>  
 

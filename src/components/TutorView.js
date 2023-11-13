@@ -2,20 +2,25 @@ import { Fragment, useState, useEffect } from "react";
 import TutoringItem from "./TutoringItem";
 import TutoringChanges from "./TutoringChanges";
 import SelectAsigaturas from "./SelectAsignaturas";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useTutorings } from "../context/TutoringContext";
+import { authorizeUser } from "../api/login.api";
 
 function TutorView() {
     const [selectedTutoring, setSelectedTutoring] = useState({});
 
-    const { user, isAuthenticated } = useAuth0();
     const { loadTutorTutorings, tutorTutorings } = useTutorings();
 
     useEffect(() => {
-      if (isAuthenticated) {
-        loadTutorTutorings(user.user_id);
-      }
-    }, [])
+        async function validate() {
+            const response = await authorizeUser();
+            if(response.data.Status){
+                loadTutorTutorings(response.data.id)
+            }
+        }
+        validate();
+    }, []);
+
+    
 
     const handleOpenChanges = (tutoringId) => {
         const data = tutorTutorings.filter(

@@ -1,15 +1,28 @@
 import { Fragment, useState, useEffect } from "react";
-import Tutoringform from "./Tutoringform";
 import { getTutorsByClass } from "../api/tutors.api";
 import { SERVER_URL } from "../config";
-import { useAuth0 } from "@auth0/auth0-react";
+import LoginForm from "./LoginForm";
 import TutoringRequest from "./TutoringRequest";
+import { authorizeUser } from "../api/login.api";
 
 function Asignaturas() {
     const [courses, setCourses] = useState([]);
     const [tutorsList, setTutorsList] = useState([]);
 
-    const { isAuthenticated, loginWithRedirect } = useAuth0();
+
+    const [isLogged, setIsLogged] = useState(false)
+
+    useEffect(() => {
+        async function validate() {
+            const response = await authorizeUser();
+            console.log(response)
+            if(response.data.Status){
+                setIsLogged(true)
+            }
+        }
+        validate();
+    }, []);
+
 
     useEffect(() => {
         fetch(`${SERVER_URL}/asignaturas`)
@@ -35,11 +48,11 @@ function Asignaturas() {
                     <img src = {process.env.PUBLIC_URL + `/images/${course.code}.png`} alt="" />
                     <h3>{course.name}</h3>
                     {
-                        isAuthenticated ?
+                        isLogged ?
 
                         <TutoringRequest tutors={tutorsList} courseName={course.name} courseId={course.id} handleClick={handleClickClass} />
                         :
-                        <button className="btn" onClick={() => loginWithRedirect()}>Consigue tutoría</button>
+                        <LoginForm text="Consigue tutoría"></LoginForm>
                     }
                 </div>
             ))}

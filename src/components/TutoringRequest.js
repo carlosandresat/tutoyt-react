@@ -1,8 +1,8 @@
 import { Form, Formik } from "formik";
 import { requestSession } from "../api/session.api";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useTutorings } from "../context/TutoringContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { authorizeUser } from "../api/login.api";
 import { getAvailableTimes } from "./AvailableTimes";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import * as Yup from "yup";
@@ -27,7 +27,19 @@ function TutoringRequest(props) {
     setAvailableTimes(updatedAvailableTimes);
   };
 
-  const { user } = useAuth0();
+  const [userId, setUserId] = useState("")
+
+    useEffect(() => {
+        async function validate() {
+            const response = await authorizeUser();
+            console.log(response)
+            if(response.data.Status){
+                setUserId(response.data.id)
+            }
+        }
+        validate();
+    }, []);
+
   const { setStudentTutorings } = useTutorings();
 
 
@@ -113,7 +125,7 @@ function TutoringRequest(props) {
                   className: props.courseName,
                   ...values,
                   date: date_f,
-                  student: user.user_id,
+                  student: userId,
                 };
 
                 const datetime = new Date([date_f, values.time]);

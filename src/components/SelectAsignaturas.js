@@ -1,15 +1,14 @@
 import * as Dialog from '@radix-ui/react-dialog';
 import { Cross2Icon } from '@radix-ui/react-icons';
 import * as Toggle from '@radix-ui/react-toggle';
-import { Fragment, useState } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { getClassesByTutor } from '../api/classes.api';
 import { 
     insertTutorClass, 
     deleteTutorClass 
 } from '../api/tutors.api';
-import {
-    useAuth0
-} from '@auth0/auth0-react';
+
+import { authorizeUser } from '../api/login.api';
 
 import '../RadixCSS/dialog.css'
 import '../RadixCSS/toogle.css'
@@ -17,18 +16,30 @@ import '../RadixCSS/toogle.css'
 
 function SelectAsigaturas() {
 
+    const [userId, setUserId] = useState("")
+
+    useEffect(() => {
+        async function validate() {
+            const response = await authorizeUser();
+            console.log(response)
+            if(response.data.Status){
+                setUserId(response.data.id)
+            }
+        }
+        validate();
+    }, []);
+
+
     const [open, setOpen] = useState(false)
     const [asignaturas, setAsignaturas] = useState([])
-
-    const { user } = useAuth0();
 
     const handleSaveClick = async () => {
         const classes = asignaturas.filter((asignatura) => asignatura.is_tutor === 1).map((asignatura) => asignatura.id)
 
-        await deleteTutorClass(user.user_id)
+        await deleteTutorClass(userId)
 
         classes.map(async(clase) => {
-            await insertTutorClass({id_tutor: user.user_id, id_class: clase})
+            await insertTutorClass({id_tutor: userId, id_class: clase})
         })
     }
 
@@ -39,7 +50,7 @@ function SelectAsigaturas() {
 
     const handleOpen = async () => {
         if(!open){
-            const result = await getClassesByTutor(user.user_id)
+            const result = await getClassesByTutor(userId)
             setAsignaturas(result.data)
         }
         setOpen(!open)
