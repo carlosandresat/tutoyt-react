@@ -9,7 +9,6 @@ function Home() {
     useEffect(() => {
         async function validate() {
             const response = await authorizeUser();
-            console.log(response)
             if(response.data.Status){
                 setIsLogged(true)
             }
@@ -21,8 +20,8 @@ function Home() {
         <section className="home" id="home">
 
             <div className="content">
-                <h3>Tutoring Sessions Yachay Tech</h3>
-                <h3>(Fase de pruebas)</h3>
+                <h3>Orientador Yachay Tech</h3>
+                <h3>(Proyecto Piloto)</h3>
                 <p>Donde nos reunimos en nombre del conomiento</p>
                 {
                     isLogged ?

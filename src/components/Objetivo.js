@@ -11,8 +11,8 @@ function Objetivo(){
                 </div>
 
                 <div class="content">
-                    <h3>¿Qué es Tutoring Sessions?</h3>
-                    <p>Aquí puedes encontrar ayuda en tus asignaturas con personas dispuestas a enseñarte mediante tutorías propuestas a tu comodidad. O tambien puedes dar un paso más allá y convertirte en uno de nuestros tutores en Tutoring Sessions Yachay Tech.</p>
+                    <h3>¿En qué consiste OrientaYT?</h3>
+                    <p> Orientador Yachay Tech busca crear una plataforma moderna que fomente la colaboración, el aprendizaje compartido y el apoyo académico personalizado. Al integrar tecnologías innovadoras, aspiramos a construir una comunidad educativa donde cada estudiante tenga acceso a recursos y orientación, contribuyendo así a cerrar las brechas educativas y facilitar el éxito académico para todos. En OrientaYT, no solo creamos una plataforma, sino un espacio donde la tutoría se convierte en un acto de empoderamiento y crecimiento colectivo.</p>
                     <p>¿De qué sirve el poder del conocimiento si no se lo comparte con los demás?</p>
                 </div>
 

@@ -23,7 +23,6 @@ function Tutoringform(props) {
     useEffect(() => {
         async function validate() {
             const response = await authorizeUser();
-            console.log(response)
             if(response.data.Status){
                 setUserId(response.data.id)
             }
@@ -58,7 +57,6 @@ function Tutoringform(props) {
                         const requestedtime = time.split(':')
                         datetime.setHours(requestedtime[0], requestedtime[1], 0, 0)
                         const datenow = new Date()
-                        console.log(datetime)
                         return datetime > datenow
                     },
                     message: 'La hora debe ser 6 horas posterior a la hora actual'
@@ -93,7 +91,6 @@ function Tutoringform(props) {
                 const datenow = new Date()
                 
                 try {
-                    console.log(data)
                     const response = await requestSession(data)
                     handleNewTutoring(response.data)
                 } catch (error) {

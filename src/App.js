@@ -7,6 +7,7 @@ import Tutores from './components/Tutores';
 import Footer from './components/Footer';
 import TutorView from './components/TutorView';
 import StudentView from './components/StudentView';
+import AdminView from './components/AdminView';
 import { useEffect, useState } from 'react';
 import { authorizeUser } from './api/login.api';
 
@@ -19,42 +20,43 @@ function App() {
   const [userRole, setUserRole] = useState("")
 
   useEffect(() => {
-      async function validate() {
-          const response = await authorizeUser();
-          console.log(response)
-          if(response.data.Status){
-              setIsLogged(true)
-              setUserRole(response.data.status)
-          }
+    async function validate() {
+      const response = await authorizeUser();
+      if (response.data.Status) {
+        setIsLogged(true)
+        setUserRole(response.data.status)
       }
-      validate();
+    }
+    validate();
   }, []);
 
 
   return (
     <TutoringContextProvider>
-    <div className="App">
-      <Header />
-      <Home />
-      {
-        isLogged === false && <Objetivo />
-      }
-      { userRole === 'orientador' && <TutorView /> }
-      { isLogged && <StudentView /> }
-      
+      <div className="App">
+        <Header />
+        <Home />
+        {
+          isLogged === false && <Objetivo />
+        }
+        {userRole === 'admin' && <AdminView></AdminView>}
 
-      <section className="asignaturas" id="asignaturas">
-        <h1 className="heading"> Nuestras <span>asignaturas</span> </h1>
-        <div className="box-container" id="assignments">
-          <Asignaturas />
-        </div>
-      </section>
-      <section class="tutores" id="tutores">
-        <h1 class="heading"> Nuestros <span>orientadores</span> </h1>
-        <Tutores />
-      </section>
-      <Footer/>
-    </div>
+        {userRole === 'orientador' && <TutorView />}
+        {isLogged && <StudentView />}
+
+
+        <section className="asignaturas" id="asignaturas">
+          <h1 className="heading"> Nuestras <span>asignaturas</span> </h1>
+          <div className="box-container" id="assignments">
+            <Asignaturas />
+          </div>
+        </section>
+        <section class="tutores" id="tutores">
+          <h1 class="heading"> Nuestros <span>orientadores</span> </h1>
+          <Tutores />
+        </section>
+        <Footer />
+      </div>
     </TutoringContextProvider>
   );
 }

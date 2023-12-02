@@ -10,7 +10,6 @@ function StudentView() {
     useEffect(() => {
         async function validate() {
             const response = await authorizeUser();
-            console.log(response)
             if(response.data.Status){
                 loadStudentTutorings(response.data.id)
             }

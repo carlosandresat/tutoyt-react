@@ -1,12 +1,12 @@
-import {Form, Formik} from 'formik'
+import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import { Fragment } from 'react';
 import { useTutorings } from "../context/TutoringContext";
 
 
-function TutoringChanges({requested}) {
+function TutoringChanges({ requested }) {
 
-    const { changeTutoring } = useTutorings(); 
+    const { changeTutoring } = useTutorings();
 
     const handleClickCloseUser = event => {
         document.getElementById('tutoringChangeForm').classList.remove('popup');
@@ -14,36 +14,32 @@ function TutoringChanges({requested}) {
 
     const loginSchema = Yup.object().shape({
         changeTime: Yup.boolean(),
-        changePlace: Yup.boolean(),
-        changeTopic: Yup.boolean(),
-        date: Yup.string().when("changeTime", {
+        date: Yup.date().when("changeTime", {
             is: true,
-            then: Yup.string().required("Ingresa una fecha")
-        }),
-        time: Yup.string().when("changeTime", {
-            is: true,
-            then: Yup.string().required("Ingresa una hora")
+            then: Yup.date().required("Tienes que ingresar una fecha")
         })
     })
 
 
- 
+
     return (
         <div className="login-form" id="tutoringChangeForm">
             <Formik
-            initialValues={
-                {          
-                    changeTime: false,
-                    changePlace: false,
-                    changeTopic: false,
-                    date: "",
-                    time: "",
-                    place: "",
-                    topic: ""
+                initialValues={
+                    {
+                        changeTime: false,
+                        changePlace: false,
+                        changeTopic: false,
+                        date: "",
+                        time: "",
+                        place: "",
+                        topic: ""
+                    }
                 }
-            }
-            //validationSchema={loginSchema}
+                //validationSchema={loginSchema}
                 onSubmit={async (values, actions) => {
+                    console.log("Prueba")
+                    console.log("values.date CHANGES", values)
                     await changeTutoring(requested.id, values)
                     document.getElementById('tutoringChangeForm').classList.remove('popup');
                     actions.resetForm()
@@ -53,11 +49,11 @@ function TutoringChanges({requested}) {
                     <Form onSubmit={handleSubmit}>
                         <h3>Registra tus cambios</h3>
                         <div className="box">
-                        <input type="checkbox" name="changeTime" onChange={handleChange} checked={values.changeTime} />
-                        <label>Proponer fecha/hora:</label>
+                            <input type="checkbox" name="changeTime" onChange={handleChange} checked={values.changeTime} />
+                            <label>Proponer fecha/hora:</label>
                         </div>
                         {
-                            true && 
+                            true &&
                             <Fragment>
                                 {errors.date && touched.date ? (
                                     <p>{errors.date}</p>
@@ -71,13 +67,13 @@ function TutoringChanges({requested}) {
                                     type="time" className="box" name="time" onChange={handleChange}
                                     value={values.changeTime ? values.time : requested.time}
                                     disabled={!values.changeTime}>
-                                    
+
                                 </input>
                             </Fragment>
                         }
 
                         <div className="box">
-                        <input type="checkbox" name="changePlace" onChange={handleChange} checked={values.changePlace} />
+                            <input type="checkbox" name="changePlace" onChange={handleChange} checked={values.changePlace} />
                             <label>Proponer lugar:</label>
                         </div>
                         {
@@ -93,7 +89,7 @@ function TutoringChanges({requested}) {
                             </Fragment>
                         }
                         <div className="box">
-                        <input type="checkbox" name="changeTopic" onChange={handleChange} checked={values.changeTopic} />
+                            <input type="checkbox" name="changeTopic" onChange={handleChange} checked={values.changeTopic} />
                             <label>Rectificar tema:</label>
                         </div>
                         {
@@ -101,18 +97,18 @@ function TutoringChanges({requested}) {
                                 {errors.topic && touched.topic ? (
                                     <p>{errors.topic}</p>
                                 ) : null}
-                                <textarea rows="3" cols="80"
-                        type="text" placeholder="Rectifica el tema (max. 50 caracteres)" className="box"
-                        name='topic' onChange={handleChange} value={values.changeTopic ? values.topic : requested.topic}
-                        disabled={!values.changeTopic}
-                    />
+                                <textarea rows="3" cols="80" maxLength="100"
+                                    type="text" placeholder="Rectifica el tema (max. 50 caracteres)" className="box"
+                                    name='topic' onChange={handleChange} value={values.changeTopic ? values.topic : requested.topic}
+                                    disabled={!values.changeTopic}
+                                />
                             </Fragment>
                         }
-                        
-                        
+
+
                         <p>El estudiante deberá aceptar o rechazar los cambios</p>
                         <button type="submit" className="btn" value="Login" disabled={isSubmitting}>
-                        {isSubmitting ? "Cargando..." : "Proponer"}
+                            {isSubmitting ? "Cargando..." : "Proponer"}
                         </button>
                         <i className="fas fa-times" onClick={handleClickCloseUser}></i>
                     </Form>

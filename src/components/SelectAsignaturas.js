@@ -21,7 +21,6 @@ function SelectAsigaturas() {
     useEffect(() => {
         async function validate() {
             const response = await authorizeUser();
-            console.log(response)
             if(response.data.Status){
                 setUserId(response.data.id)
             }

@@ -46,3 +46,8 @@ export const rateTutor = async (id, rate) =>
 export const rateStudent = async (id, rate) =>
     await axios.put(`${SERVER_URL}/session/rate/student/${id}`, rate)
 
+export const reportSession = async (data) =>
+    await axios.post(`${SERVER_URL}/report`, data)
+
+export const getAdminView = async () =>
+    await axios.get(`${SERVER_URL}/adminview`)

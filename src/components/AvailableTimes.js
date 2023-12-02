@@ -2,8 +2,6 @@ import { getTutorSessionsByDate } from "../api/session.api";
 
 export async function getAvailableTimes(tutor_id, date) {
 
-  console.log(tutor_id, date)
-
   const tutorSessions = await getTutorSessionsByDate(tutor_id, date);
 
   // Define time slot intervals
@@ -16,7 +14,7 @@ export async function getAvailableTimes(tutor_id, date) {
 
   // Calculate unavailable time slots based on existing sessions
   for (const session of tutorSessions.data) {
-    const sessionStartTime = new Date(`${date}T${session.time}:00`);
+    const sessionStartTime = new Date(session.date);
     const sessionEndTime = new Date(
       sessionStartTime.getTime() + session.duration * 60 * 1000
     );
@@ -44,7 +42,6 @@ export async function getAvailableTimes(tutor_id, date) {
     }
     currentTime += timeInterval;
   }
-  console.log(availableTimeSlots)
 
   return availableTimeSlots;
 }

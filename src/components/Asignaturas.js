@@ -15,7 +15,6 @@ function Asignaturas() {
     useEffect(() => {
         async function validate() {
             const response = await authorizeUser();
-            console.log(response)
             if(response.data.Status){
                 setIsLogged(true)
             }

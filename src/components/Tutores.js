@@ -32,7 +32,7 @@ function Tutores() {
     const tutoresdata = tutors.map(tutor => (
         <SwiperSlide className="box">
             <div className="image">
-                <img src={tutor.pic_url} alt="" />
+                <img src={process.env.PUBLIC_URL + "/photos/" + tutor.pic_url} alt="" />
             </div>
             <div className="content">
                 <h3>{tutor.name}</h3>

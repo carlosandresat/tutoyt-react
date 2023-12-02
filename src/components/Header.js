@@ -11,7 +11,6 @@ function Header() {
     useEffect(() => {
         async function validate() {
             const response = await authorizeUser();
-            console.log(response)
             if(response.data.Status){
                 setIsLogged(true)
                 setUserRole(response.data.status)

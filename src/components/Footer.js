@@ -9,7 +9,6 @@ function Footer() {
     useEffect(() => {
         async function validate() {
             const response = await authorizeUser();
-            console.log(response)
             if(response.data.Status){
                 setIsLogged(true)
                 setUserRole(response.data.status)
@@ -51,7 +50,7 @@ function Footer() {
 
 
             <div className="credit">
-                Developed by <span>Carlos Arévalo</span> | © TutoYT v0.4
+                Developed by <span>Carlos Arévalo</span> | © TutoYT v1.0
             </div>
         </section>
     )

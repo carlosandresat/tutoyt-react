@@ -2,14 +2,18 @@ import { Fragment } from "react";
 import { useTutorings } from "../context/TutoringContext";
 import { useState } from "react";
 import { StarRating } from "./StarRating";
+import RatingSession from "./RatingSession";
+import ReportProblem from "./ReportProblem";
 
 function TutoringItem({
   id,
   topic,
   place,
   status,
+  date_raw,
   date,
   time,
+  duration,
   classname,
   student,
   loadEdit,
@@ -25,21 +29,10 @@ function TutoringItem({
     document.getElementById("tutoringChangeForm").classList.add("popup");
   };
 
-  const today = new Date();
-
   const isTutoringDone = () => {
-    const day = date.split("/")[0];
-    const hour = time.split(":")[0];
-    const minute = time.split(":")[1];
-
-    const condition =
-      (parseInt(day) === today.getDate() ||
-        parseInt(day) === today.getDate() - 1) &&
-      (parseInt(hour) < today.getHours() ||
-        (parseInt(hour) === today.getHours() &&
-          parseInt(minute) < today.getMinutes()) ||
-        parseInt(day) === today.getDate() - 1);
-    return condition;
+    const today = new Date();
+    const sessionDate = new Date(date_raw)
+    return today.getTime() > sessionDate.getTime();
   };
 
   return (
@@ -55,6 +48,9 @@ function TutoringItem({
         <i className="fas fa-clock"></i> {time}
       </p>
       <p>
+        <i class="fas fa-hourglass"></i> {duration / 60} {duration === 60 ? "hora" : "horas"}
+      </p>
+      <p>
         <i class="fas fa-map-marker-alt"></i> {place}
       </p>
 
@@ -67,14 +63,14 @@ function TutoringItem({
           <Fragment>
             <button
               className="btn"
-              onClick={async () => await acceptTutoring(id, "tutor")}
+              onClick={async () => await acceptTutoring(id, "orientador")}
             >
               Aceptar
             </button>
             <button className="btn" onClick={handleClickChanges}>
               Proponer cambios
             </button>
-            <button className="btn" onClick={() => cancelTutoring(id, "tutor")}>
+            <button className="btn" onClick={() => cancelTutoring(id, "orientador")}>
               Cancelar
             </button>
           </Fragment>
@@ -83,18 +79,10 @@ function TutoringItem({
       <div className="student-rate">
         {status === "accepted" && isTutoringDone() && rate_student === null ? (
           <Fragment>
-            <StarRating
-              rating={rating}
-              hover={hover}
-              setRating={setRating}
-              setHover={setHover}
-            />
-            <button
-              className="btn"
-              onClick={() => submitStudentRate(id, rating)}
-            >
-              Calificar
-            </button>
+            <ReportProblem role="orientador" sessionId={id}></ReportProblem>
+
+            <RatingSession ratingTo="student" sessionId={id}></RatingSession>
+
           </Fragment>
         ) : null}
       </div>

@@ -25,14 +25,14 @@ function Profile({user}) {
     return (
         <Dialog.Root open={open} onOpenChange={handleOpen}>
             <Dialog.Trigger asChild>
-                <button className="btn btn-asignaturas">Ver Perfil</button>
+                <button className="btn btn-asignaturas">Ver Logros</button>
             </Dialog.Trigger>
             <Dialog.Portal>
                 <Dialog.Overlay className="DialogOverlay" />
                 <Dialog.Content className="DialogContent">
                     <Dialog.Title className="DialogTitle">Logros</Dialog.Title>
                     <Dialog.Description className="DialogDescription">
-                        Aquí están los logros que has conseguido
+                        Aquí están los logros que este usuario ha conseguido
                     </Dialog.Description>
                     <div className='logros-container'>
                         {

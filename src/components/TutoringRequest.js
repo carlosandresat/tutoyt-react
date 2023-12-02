@@ -3,6 +3,7 @@ import { requestSession } from "../api/session.api";
 import { useTutorings } from "../context/TutoringContext";
 import { useState, useEffect } from "react";
 import { authorizeUser } from "../api/login.api";
+import { requestSessionNotification } from "../api/telegram.api";
 import { getAvailableTimes } from "./AvailableTimes";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import * as Yup from "yup";
@@ -13,10 +14,10 @@ function TutoringRequest(props) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = async () => {
-    if(!open) {
+    if (!open) {
       props.handleClick(props.courseId);
     }
-      // open dialog
+    // open dialog
     setOpen(!open);
   };
 
@@ -29,29 +30,29 @@ function TutoringRequest(props) {
 
   const [userId, setUserId] = useState("")
 
-    useEffect(() => {
-        async function validate() {
-            const response = await authorizeUser();
-            console.log(response)
-            if(response.data.Status){
-                setUserId(response.data.id)
-            }
-        }
-        validate();
-    }, []);
+  useEffect(() => {
+    async function validate() {
+      const response = await authorizeUser();
+      if (response.data.Status) {
+        setUserId(response.data.id)
+      }
+    }
+    validate();
+  }, []);
 
   const { setStudentTutorings } = useTutorings();
 
 
   const handleNewTutoring = (tutoring) => {
-    setStudentTutorings((prevTutorings) => [...prevTutorings, tutoring]);
+    const sessionDate = new Date(tutoring.date_raw)
+    setStudentTutorings((prevTutorings) => [...prevTutorings, { ...tutoring, date: sessionDate.toLocaleDateString("en-GB"), time: sessionDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false }) }]);
   };
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
   const tutoringSchema = Yup.object().shape({
-    tutor: Yup.string().required("Tutor requerido"),
+    tutor: Yup.string().required("Orientador requerido"),
     date: Yup.date()
       .required()
       .min(today, "La fecha no puede ser anterior a hoy"),
@@ -65,8 +66,8 @@ function TutoringRequest(props) {
               const requestedtime = time.split(":");
               datetime.setHours(requestedtime[0], requestedtime[1], 0, 0);
               const datenow = new Date();
-              console.log(datetime);
-              return datetime > datenow;
+              const previousTime = 6 * 60 * 60 * 1000;
+              return datetime.getTime() > datenow.getTime() + previousTime;
             },
             message: "La hora debe ser 6 horas posterior a la hora actual",
           });
@@ -109,7 +110,10 @@ function TutoringRequest(props) {
               }}
               validationSchema={tutoringSchema}
               onSubmit={async (values, actions) => {
+                const hour = values.time.slice(0, 2)
+                const minutes = values.time.slice(3, 5)
                 const date_r = new Date(values.date);
+                date_r.setHours(hour, minutes)
                 const date_f =
                   date_r.getFullYear() +
                   "-" +
@@ -124,26 +128,37 @@ function TutoringRequest(props) {
                 const data = {
                   className: props.courseName,
                   ...values,
-                  date: date_f,
+                  datetime: date_r,
                   student: userId,
                 };
 
                 const datetime = new Date([date_f, values.time]);
                 const datenow = new Date();
+                console.log("date_r", date_r)
+                const formattedTutor = props.tutors.find(
+                  (tutor) => tutor.id == values.tutor
+                ).name.replaceAll(' ', '%20')
 
                 try {
-                  console.log(data);
+
                   const response = await requestSession(data);
                   const newTutoring = {
                     ...response.data,
                     tutor: props.tutors.find(
-                      (tutor) => tutor.id === response.data.tutor
+                      (tutor) => tutor.id == response.data.tutor
                     ).name,
                   };
                   handleNewTutoring(newTutoring);
                 } catch (error) {
                   console.log(error);
                 }
+                try {
+                  await requestSessionNotification(formattedTutor)
+
+                } catch(error) {
+                  console.log(error);
+                }
+
                 setOpen(false);
                 actions.resetForm();
               }}
@@ -237,8 +252,8 @@ function TutoringRequest(props) {
                         <option value="60">1 hora</option>
                         <option value="90">1 hora y media</option>
                         <option value="120">2 horas</option>
-                        <option value="150">2 horas y media</option>
-                        <option value="180">3 horas</option>
+                        {/*<option value="150">2 horas y media</option>
+                        <option value="180">3 horas</option>*/}
                       </select>
 
                       <h4>Lugar tutoría:</h4>
